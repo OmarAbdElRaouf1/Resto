@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:resto/core/helpers/extensions.dart';
+import 'package:resto/core/helpers/shared_prefs.dart';
 import 'package:resto/core/routing/routes.dart';
 import 'package:resto/core/theme/app_colors.dart';
 
@@ -15,8 +16,9 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
-    navigateToHome(context);
     super.initState();
+
+    navigateToHome();
   }
 
   @override
@@ -26,18 +28,28 @@ class _SplashViewState extends State<SplashView> {
       body: Column(
         children: [
           const Gap(280),
+
           SvgPicture.asset('assets/vectors/hungry_logo.svg'),
+
           const Spacer(),
+
           Image.asset('assets/images/splash_logo.png'),
         ],
       ),
     );
   }
 
-  Future<void> navigateToHome(BuildContext context) async {
+  Future<void> navigateToHome() async {
     await Future.delayed(const Duration(seconds: 2));
-    // Navigate to the home screen after the delay
-    // ignore: use_build_context_synchronously
-    context.pushReplacementNamed(Routes.loginView);
+
+    final token = await SharedPrefs.getToken();
+
+    if (!mounted) return;
+
+    if (token != null && token.isNotEmpty) {
+      context.pushReplacementNamed(Routes.homeView);
+    } else {
+      context.pushReplacementNamed(Routes.loginView);
+    }
   }
 }

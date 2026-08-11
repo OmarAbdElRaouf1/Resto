@@ -60,7 +60,7 @@ class _CustomTextfieldState extends State<CustomTextfield> {
           hintStyle: const TextStyle(color: Colors.white60, fontSize: 14),
 
           filled: true,
-          fillColor: Colors.white.withOpacity(0.10),
+          fillColor: Colors.white.withValues(alpha: 0.10),
 
           // الـ TextField نفسه ثابت
           contentPadding: const EdgeInsets.symmetric(
@@ -85,7 +85,7 @@ class _CustomTextfieldState extends State<CustomTextfield> {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(
-              color: Colors.white.withOpacity(0.20),
+              color: Colors.white.withValues(alpha: 0.20),
               width: 0.8,
             ),
           ),
