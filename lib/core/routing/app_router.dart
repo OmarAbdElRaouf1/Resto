@@ -6,7 +6,9 @@ import 'package:resto/features/auth/presentation/manager/register/register_cubit
 import 'package:resto/features/auth/presentation/views/login_view.dart';
 import 'package:resto/features/auth/presentation/views/register_view.dart';
 import 'package:resto/features/cart/cart_view.dart';
+import 'package:resto/features/home/data/models/products_model.dart';
 import 'package:resto/features/home/presentation/views/home_view.dart';
+import 'package:resto/features/home/presentation/views/product_details_view.dart';
 import 'package:resto/features/profile/profile_view.dart';
 import 'package:resto/root_view.dart';
 import 'package:resto/splash_view.dart';
@@ -34,6 +36,11 @@ class AppRouter {
         );
       case Routes.homeView:
         return MaterialPageRoute(builder: (_) => const HomeView());
+      case Routes.productDetailsView:
+        final product = settings.arguments as ProductModel;
+        return MaterialPageRoute(
+          builder: (_) => ProductDetailsView(product: product),
+        );
       case Routes.cartView:
         return MaterialPageRoute(builder: (_) => const CartView());
       case Routes.profileView:

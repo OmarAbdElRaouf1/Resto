@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
+import 'package:resto/core/helpers/extensions.dart';
+import 'package:resto/core/routing/routes.dart';
 import 'package:resto/core/widgets/custom_text.dart';
 import 'package:resto/features/home/presentation/manager/products/products_cubit.dart';
 import 'package:resto/features/home/presentation/views/widgets/card_item.dart';
@@ -74,6 +76,10 @@ class ProductBlocBuilder extends StatelessWidget {
                 text: product.name ?? '',
                 desc: product.description ?? '',
                 rate: (product.rating ?? 0).toString(),
+                onTap: () => context.pushNamed(
+                  Routes.productDetailsView,
+                  arguments: product,
+                ),
               );
             }, childCount: itemCount),
           ),
