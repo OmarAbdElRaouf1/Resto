@@ -47,7 +47,7 @@ class _SplashViewState extends State<SplashView> {
     if (!mounted) return;
 
     if (token != null && token.isNotEmpty) {
-      context.pushReplacementNamed(Routes.homeView);
+      context.pushReplacementNamed(Routes.rootView);
     } else {
       context.pushReplacementNamed(Routes.loginView);
     }

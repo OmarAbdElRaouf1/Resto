@@ -28,6 +28,7 @@ class AuthRepoimpl implements AuthRepo {
     if (user.token != null) {
       await SharedPrefs.saveToken(user.token!);
     }
+    await SharedPrefs.saveUserName(user.name);
     return user;
   }
 
@@ -46,6 +47,7 @@ class AuthRepoimpl implements AuthRepo {
     if (user.token != null) {
       await SharedPrefs.saveToken(user.token!);
     }
+    await SharedPrefs.saveUserName(user.name);
     return user;
   }
   //register
