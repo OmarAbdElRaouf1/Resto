@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:resto/core/helpers/extensions.dart';
 import 'package:resto/core/routing/routes.dart';
 import 'package:resto/core/theme/app_colors.dart';
 import 'package:resto/core/widgets/custom_button.dart';
@@ -47,11 +48,7 @@ class _RegisterViewState extends State<RegisterView> {
                     actions: [
                       TextButton(
                         onPressed: () {
-                          Navigator.of(dialogContext).pop();
-
-                          Navigator.of(
-                            context,
-                          ).pushReplacementNamed(Routes.loginView);
+                          context.pushAndRemoveUntil(Routes.rootView);
                         },
                         child: const Text('OK'),
                       ),

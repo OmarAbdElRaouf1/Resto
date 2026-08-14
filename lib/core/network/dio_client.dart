@@ -4,7 +4,7 @@ import 'package:resto/core/helpers/shared_prefs.dart';
 class DioClient {
   final Dio _dio = Dio(
     BaseOptions(
-      baseUrl: 'http://localhost:5001/api',
+      baseUrl: 'https://burger-house-api-83wd.onrender.com/api/',
       connectTimeout: const Duration(seconds: 20),
       receiveTimeout: const Duration(seconds: 20),
       headers: {'Content-Type': 'application/json'},
