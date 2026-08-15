@@ -25,9 +25,14 @@ class HomeRepoImpl implements HomeRepo {
   Future<List<CategoryEntity>> getCategories() async {
     try {
       final response = await apiService.get(ApiEdpoints.categories);
-      return (response as List)
+
+      final categories = (response as List)
           .map((e) => CategoryModel.fromJson(e))
           .toList();
+
+      categories.insert(0, CategoryModel(id: null, name: 'All'));
+
+      return categories;
     } on Exception catch (e) {
       throw Exception('Failed to load categories: $e');
     }
