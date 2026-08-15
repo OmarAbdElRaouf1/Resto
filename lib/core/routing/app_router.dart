@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resto/core/di/di.dart';
+import 'package:resto/core/routing/fade_page_route.dart';
 import 'package:resto/features/auth/presentation/manager/login/login_cubit.dart';
 import 'package:resto/features/auth/presentation/manager/register/register_cubit.dart';
 import 'package:resto/features/auth/presentation/views/login_view.dart';
@@ -19,37 +20,56 @@ class AppRouter {
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.initial:
-        return MaterialPageRoute(builder: (_) => const SplashView());
+        return FadeSlidePageRoute(
+          settings: settings,
+          builder: (_) => const SplashView(),
+        );
       case Routes.loginView:
-        return MaterialPageRoute(
+        return FadeSlidePageRoute(
+          settings: settings,
           builder: (_) => BlocProvider(
             create: (context) => getIt<LoginCubit>(),
             child: LoginView(),
           ),
         );
       case Routes.registerView:
-        return MaterialPageRoute(
+        return FadeSlidePageRoute(
+          settings: settings,
           builder: (_) => BlocProvider(
             create: (context) => getIt<RegisterCubit>(),
             child: RegisterView(),
           ),
         );
       case Routes.homeView:
-        return MaterialPageRoute(builder: (_) => const HomeView());
+        return FadeSlidePageRoute(
+          settings: settings,
+          builder: (_) => const HomeView(),
+        );
       case Routes.productDetailsView:
         final product = settings.arguments as ProductEntity;
-        return MaterialPageRoute(
+        return FadeSlidePageRoute(
+          settings: settings,
           builder: (_) => ProductDetailsView(product: product),
         );
       case Routes.cartView:
-        return MaterialPageRoute(builder: (_) => const CartView());
+        return FadeSlidePageRoute(
+          settings: settings,
+          builder: (_) => const CartView(),
+        );
       case Routes.profileView:
-        return MaterialPageRoute(builder: (_) => const ProfileView());
+        return FadeSlidePageRoute(
+          settings: settings,
+          builder: (_) => const ProfileView(),
+        );
       case Routes.rootView:
-        return MaterialPageRoute(builder: (_) => const RootView());
+        return FadeSlidePageRoute(
+          settings: settings,
+          builder: (_) => const RootView(),
+        );
 
       default:
-        return MaterialPageRoute(
+        return FadeSlidePageRoute(
+          settings: settings,
           builder: (_) => Scaffold(
             body: Center(
               child: Text('No route defined for "${settings.name}"'),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:resto/core/theme/app_colors.dart';
-import 'package:resto/core/widgets/custom_text.dart';
 
 /// One chip in the categories row. [id] is what gets sent to the API
 /// (null for "All"), [name] is what the user sees.
@@ -31,7 +30,9 @@ class FoodCategory extends StatelessWidget {
           final isSelected = item.id == selectedId;
           return GestureDetector(
             onTap: () => onCategoryTap(item.id),
-            child: Container(
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeOut,
               margin: const EdgeInsets.only(right: 8),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.black12),
@@ -41,11 +42,14 @@ class FoodCategory extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-              child: CustomText(
-                size: 14,
-                text: item.name,
-                weight: FontWeight.w500,
-                color: isSelected ? Colors.white : Colors.grey.shade700,
+              child: AnimatedDefaultTextStyle(
+                duration: const Duration(milliseconds: 200),
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: isSelected ? Colors.white : Colors.grey.shade700,
+                ),
+                child: Text(item.name, maxLines: 1, overflow: TextOverflow.ellipsis),
               ),
             ),
           );

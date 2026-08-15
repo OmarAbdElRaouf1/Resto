@@ -29,7 +29,18 @@ class _SplashViewState extends State<SplashView> {
         children: [
           const Gap(280),
 
-          SvgPicture.asset('assets/vectors/hungry_logo.svg'),
+          TweenAnimationBuilder<double>(
+            tween: Tween(begin: 0, end: 1),
+            duration: const Duration(milliseconds: 700),
+            curve: Curves.easeOutBack,
+            builder: (context, value, child) {
+              return Opacity(
+                opacity: value.clamp(0, 1),
+                child: Transform.scale(scale: value, child: child),
+              );
+            },
+            child: SvgPicture.asset('assets/vectors/hungry_logo.svg'),
+          ),
 
           const Spacer(),
 

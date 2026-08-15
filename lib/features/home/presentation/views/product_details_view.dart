@@ -7,6 +7,7 @@ import 'package:resto/core/widgets/custom_text.dart';
 import 'package:resto/features/home/domain/entities/product_entity.dart';
 import 'package:resto/features/home/presentation/views/widgets/ingridents_tag.dart';
 import 'package:resto/features/home/presentation/views/widgets/product_reviews_section.dart';
+import 'package:resto/features/home/presentation/views/widgets/rating_badge.dart';
 
 class ProductDetailsView extends StatelessWidget {
   const ProductDetailsView({super.key, required this.product});
@@ -39,7 +40,10 @@ class ProductDetailsView extends StatelessWidget {
             backgroundColor: AppColors.primaryColor,
             iconTheme: const IconThemeData(color: Colors.white),
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.network(product.image ?? '', fit: BoxFit.cover),
+              background: Hero(
+                tag: product.id ?? product.image ?? '',
+                child: Image.network(product.image ?? '', fit: BoxFit.cover),
+              ),
             ),
           ),
           SliverToBoxAdapter(
@@ -54,12 +58,12 @@ class ProductDetailsView extends StatelessWidget {
                       Expanded(
                         child: CustomText(
                           text: product.name ?? '',
-                          size: 22,
+                          size: 22.sp,
                           weight: FontWeight.w600,
                           color: AppColors.primaryColor,
                         ),
                       ),
-                      _RatingBadge(rating: product.rating ?? 0),
+                      RatingBadge(rating: product.rating ?? 0),
                     ],
                   ),
 
@@ -136,36 +140,6 @@ class ProductDetailsView extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _RatingBadge extends StatelessWidget {
-  const _RatingBadge({required this.rating});
-
-  final int rating;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      decoration: BoxDecoration(
-        color: Colors.amber.shade100,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(Icons.star_rounded, color: Colors.amber, size: 18),
-          const Gap(4),
-          CustomText(
-            text: rating.toString(),
-            size: 13,
-            weight: FontWeight.w600,
-            color: Colors.amber.shade900,
           ),
         ],
       ),

@@ -7,6 +7,7 @@ import 'package:resto/core/helpers/extensions.dart';
 import 'package:resto/core/routing/routes.dart';
 import 'package:resto/core/theme/app_colors.dart';
 import 'package:resto/core/widgets/custom_text.dart';
+import 'package:resto/core/widgets/fade_slide_in.dart';
 import 'package:resto/features/auth/presentation/manager/login/login_cubit.dart';
 import 'package:resto/features/auth/presentation/views/widgets/dont_have_account.dart';
 import 'package:resto/features/auth/presentation/views/widgets/login_form.dart';
@@ -37,34 +38,37 @@ class LoginView extends StatelessWidget {
             final isLoading = state is LoginLoading;
 
             return Center(
-              child: Column(
-                children: [
-                  Gap(100.h),
+              child: FadeSlideIn(
+                duration: const Duration(milliseconds: 450),
+                child: Column(
+                  children: [
+                    Gap(100.h),
 
-                  SvgPicture.asset('assets/vectors/hungry_logo.svg'),
+                    SvgPicture.asset('assets/vectors/hungry_logo.svg'),
 
-                  Gap(10.h),
+                    Gap(10.h),
 
-                  CustomText(
-                    text: 'Welcome to Resto',
-                    size: 24.sp,
-                    color: Colors.white,
-                    weight: FontWeight.w400,
-                  ),
+                    CustomText(
+                      text: 'Welcome to Resto',
+                      size: 24.sp,
+                      color: Colors.white,
+                      weight: FontWeight.w400,
+                    ),
 
-                  Gap(20.h),
+                    Gap(20.h),
 
-                  LoginForm(
-                    isLoading: isLoading,
-                    onSubmit: (email, password) => context
-                        .read<LoginCubit>()
-                        .login(email: email, password: password),
-                  ),
+                    LoginForm(
+                      isLoading: isLoading,
+                      onSubmit: (email, password) => context
+                          .read<LoginCubit>()
+                          .login(email: email, password: password),
+                    ),
 
-                  Gap(20.h),
+                    Gap(20.h),
 
-                  DontHaveAccount(),
-                ],
+                    DontHaveAccount(),
+                  ],
+                ),
               ),
             );
           },

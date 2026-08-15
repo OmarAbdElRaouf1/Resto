@@ -5,8 +5,10 @@ import 'package:gap/gap.dart';
 import 'package:resto/core/helpers/extensions.dart';
 import 'package:resto/core/routing/routes.dart';
 import 'package:resto/core/widgets/custom_text.dart';
+import 'package:resto/core/widgets/fade_slide_in.dart';
+import 'package:resto/features/home/presentation/manager/categories/categories_cubit.dart';
 import 'package:resto/features/home/presentation/manager/products/products_cubit.dart';
-import 'package:resto/features/home/presentation/views/widgets/card_item.dart';
+import 'package:resto/features/home/presentation/views/widgets/product_item.dart';
 import 'package:resto/features/home/presentation/views/widgets/product_skeleton.dart';
 
 class ProductBlocBuilder extends StatelessWidget {
@@ -34,9 +36,12 @@ class ProductBlocBuilder extends StatelessWidget {
                   ),
                   Gap(12.h),
                   TextButton(
-                    onPressed: () => context.read<ProductsCubit>().getProducts(
-                      categoryId: selectedCategoryId,
-                    ),
+                    onPressed: () {
+                      context.read<ProductsCubit>().getProducts(
+                        categoryId: selectedCategoryId,
+                      );
+                      context.read<CategoriesCubit>().getCategories();
+                    },
                     child: const CustomText(
                       text: 'Retry',
                       size: 14,
@@ -71,14 +76,18 @@ class ProductBlocBuilder extends StatelessWidget {
                 return const ProductSkeleton();
               }
               final product = products[index];
-              return CardItem(
-                image: product.image ?? '',
-                text: product.name ?? '',
-                desc: product.description ?? '',
-                rate: (product.rating ?? 0).toString(),
-                onTap: () => context.pushNamed(
-                  Routes.productDetailsView,
-                  arguments: product,
+              return FadeSlideIn(
+                delay: Duration(milliseconds: 40 * (index % 10)),
+                child: ProductItem(
+                  image: product.image ?? '',
+                  text: product.name ?? '',
+                  desc: product.description ?? '',
+                  rate: (product.rating ?? 0).toString(),
+                  heroTag: product.id ?? product.image ?? '',
+                  onTap: () => context.pushNamed(
+                    Routes.productDetailsView,
+                    arguments: product,
+                  ),
                 ),
               );
             }, childCount: itemCount),

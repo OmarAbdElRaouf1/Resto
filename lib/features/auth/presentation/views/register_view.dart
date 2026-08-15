@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:resto/core/theme/app_colors.dart';
 import 'package:resto/core/widgets/custom_text.dart';
+import 'package:resto/core/widgets/fade_slide_in.dart';
 import 'package:resto/features/auth/presentation/manager/register/register_cubit.dart';
 import 'package:resto/features/auth/presentation/views/widgets/have_account.dart';
 import 'package:resto/features/auth/presentation/views/widgets/register_form.dart';
@@ -36,34 +37,41 @@ class RegisterView extends StatelessWidget {
             final isLoading = state is RegisterLoading;
 
             return Center(
-              child: Column(
-                children: [
-                  Gap(100.h),
+              child: FadeSlideIn(
+                duration: const Duration(milliseconds: 450),
+                child: Column(
+                  children: [
+                    Gap(100.h),
 
-                  SvgPicture.asset('assets/vectors/hungry_logo.svg'),
+                    SvgPicture.asset('assets/vectors/hungry_logo.svg'),
 
-                  Gap(10.h),
+                    Gap(10.h),
 
-                  CustomText(
-                    text: 'Welcome to Resto',
-                    size: 24.sp,
-                    color: Colors.white,
-                    weight: FontWeight.w400,
-                  ),
+                    CustomText(
+                      text: 'Welcome to Resto',
+                      size: 24.sp,
+                      color: Colors.white,
+                      weight: FontWeight.w400,
+                    ),
 
-                  Gap(20.h),
+                    Gap(20.h),
 
-                  RegisterForm(
-                    isLoading: isLoading,
-                    onSubmit: (name, email, password) => context
-                        .read<RegisterCubit>()
-                        .register(name: name, email: email, password: password),
-                  ),
+                    RegisterForm(
+                      isLoading: isLoading,
+                      onSubmit: (name, email, password) => context
+                          .read<RegisterCubit>()
+                          .register(
+                            name: name,
+                            email: email,
+                            password: password,
+                          ),
+                    ),
 
-                  Gap(20.h),
+                    Gap(20.h),
 
-                  HaveAccount(),
-                ],
+                    HaveAccount(),
+                  ],
+                ),
               ),
             );
           },

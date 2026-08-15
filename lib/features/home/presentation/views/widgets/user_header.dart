@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:gap/gap.dart';
 import 'package:resto/core/helpers/shared_prefs.dart';
 import 'package:resto/core/theme/app_colors.dart';
 import 'package:resto/core/widgets/custom_text.dart';
@@ -23,32 +25,33 @@ class UserHeader extends StatelessWidget {
                 children: [
                   CustomText(
                     text: 'Hello, ',
-                    size: 30,
-                    weight: FontWeight.w300,
+                    size: 20.sp,
+                    weight: FontWeight.w600,
                     color: Colors.grey.shade400,
                     maxLines: 1,
                   ),
                   Flexible(
                     child: CustomText(
                       text: userName,
-                      size: 30,
-                      weight: FontWeight.w200,
-                      color: Colors.white,
+                      size: 20.sp,
+                      weight: FontWeight.w600,
+                      color: Colors.grey.shade400,
                       maxLines: 1,
                     ),
                   ),
                 ],
               ),
               CustomText(
-                text: 'HUNGRY RIGHT NOW 🙄? Restoooooo',
-                size: 14,
+                text: 'HUNGRY Now? Welcome to Restoooooo',
+                size: 14.sp,
                 weight: FontWeight.w500,
                 color: Colors.grey.shade100,
+                maxLines: 1,
               ),
             ],
           ),
         ),
-        const SizedBox(width: 12),
+        Gap(12),
         GestureDetector(
           onTap: () => SharedPrefs.removeToken().then((_) {
             Navigator.pushReplacementNamed(context, '/loginView');

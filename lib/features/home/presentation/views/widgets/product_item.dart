@@ -1,19 +1,22 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
 import 'package:resto/core/theme/app_colors.dart';
 import 'package:resto/core/widgets/custom_text.dart';
 
-class CardItem extends StatelessWidget {
-  const CardItem({
+class ProductItem extends StatelessWidget {
+  const ProductItem({
     super.key,
     required this.image,
     required this.text,
     required this.desc,
     required this.rate,
+    required this.heroTag,
     this.onTap,
   });
   final String image, text, desc, rate;
+  final Object heroTag;
   final VoidCallback? onTap;
 
   @override
@@ -33,16 +36,20 @@ class CardItem extends StatelessWidget {
                 children: [
                   /// Image
                   Center(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.network(
-                        image,
-                        width: 200,
-                        height: 140,
-                        fit: BoxFit.fitWidth,
+                    child: Hero(
+                      tag: heroTag,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          image,
+                          width: 200,
+                          height: 140,
+                          fit: BoxFit.fitWidth,
+                        ),
                       ),
                     ),
                   ),
+                  Gap(15.h),
 
                   /// Details
                   Padding(
