@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gap/gap.dart';
 import 'package:resto/core/helpers/extensions.dart';
 import 'package:resto/core/helpers/shared_prefs.dart';
 import 'package:resto/core/routing/routes.dart';
@@ -17,7 +16,6 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-
     navigateToHome();
   }
 
@@ -25,27 +23,19 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      body: Column(
-        children: [
-          const Gap(280),
-
-          TweenAnimationBuilder<double>(
-            tween: Tween(begin: 0, end: 1),
-            duration: const Duration(milliseconds: 700),
-            curve: Curves.easeOutBack,
-            builder: (context, value, child) {
-              return Opacity(
-                opacity: value.clamp(0, 1),
-                child: Transform.scale(scale: value, child: child),
-              );
-            },
-            child: SvgPicture.asset('assets/vectors/hungry_logo.svg'),
-          ),
-
-          const Spacer(),
-
-          Image.asset('assets/images/splash_logo.png'),
-        ],
+      body: Center(
+        child: TweenAnimationBuilder<double>(
+          tween: Tween(begin: 0, end: 1),
+          duration: const Duration(milliseconds: 700),
+          curve: Curves.easeOutBack,
+          builder: (context, value, child) {
+            return Opacity(
+              opacity: value.clamp(0, 1),
+              child: Transform.scale(scale: value, child: child),
+            );
+          },
+          child: SvgPicture.asset('assets/vectors/resto_logo.svg'),
+        ),
       ),
     );
   }

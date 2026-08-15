@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart' show CupertinoPageRoute;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resto/core/di/di.dart';
@@ -47,7 +48,9 @@ class AppRouter {
         );
       case Routes.productDetailsView:
         final product = settings.arguments as ProductEntity;
-        return FadeSlidePageRoute(
+        // CupertinoPageRoute (not our custom FadeSlidePageRoute) so the
+        // native iOS edge-swipe-to-pop gesture works here.
+        return CupertinoPageRoute(
           settings: settings,
           builder: (_) => ProductDetailsView(product: product),
         );

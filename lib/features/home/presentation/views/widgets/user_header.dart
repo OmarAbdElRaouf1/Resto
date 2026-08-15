@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:resto/core/helpers/shared_prefs.dart';
 import 'package:resto/core/theme/app_colors.dart';
@@ -41,12 +42,11 @@ class UserHeader extends StatelessWidget {
                   ),
                 ],
               ),
-              CustomText(
-                text: 'HUNGRY Now? Welcome to Restoooooo',
-                size: 14.sp,
-                weight: FontWeight.w500,
-                color: Colors.grey.shade100,
-                maxLines: 1,
+              Gap(8.h),
+              SvgPicture.asset(
+                'assets/vectors/resto_name.svg',
+                width: 30.w,
+                height: 30.h,
               ),
             ],
           ),

@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:resto/core/widgets/custom_text.dart';
 
 class RatingBadge extends StatelessWidget {
-  const RatingBadge({required this.rating});
+  const RatingBadge({super.key, required this.rating});
 
   final int rating;
 

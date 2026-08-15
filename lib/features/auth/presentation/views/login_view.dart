@@ -6,7 +6,6 @@ import 'package:gap/gap.dart';
 import 'package:resto/core/helpers/extensions.dart';
 import 'package:resto/core/routing/routes.dart';
 import 'package:resto/core/theme/app_colors.dart';
-import 'package:resto/core/widgets/custom_text.dart';
 import 'package:resto/core/widgets/fade_slide_in.dart';
 import 'package:resto/features/auth/presentation/manager/login/login_cubit.dart';
 import 'package:resto/features/auth/presentation/views/widgets/dont_have_account.dart';
@@ -44,16 +43,7 @@ class LoginView extends StatelessWidget {
                   children: [
                     Gap(100.h),
 
-                    SvgPicture.asset('assets/vectors/hungry_logo.svg'),
-
-                    Gap(10.h),
-
-                    CustomText(
-                      text: 'Welcome to Resto',
-                      size: 24.sp,
-                      color: Colors.white,
-                      weight: FontWeight.w400,
-                    ),
+                    SvgPicture.asset('assets/vectors/resto_logo.svg'),
 
                     Gap(20.h),
 
