@@ -1,25 +1,26 @@
 import 'package:get_it/get_it.dart';
 import 'package:resto/core/network/api_service.dart';
 import 'package:resto/core/network/dio_client.dart';
-import 'package:resto/features/auth/data/repos/auth_repo.dart';
+import 'package:resto/features/auth/data/repos/auth_repo_impl.dart';
+import 'package:resto/features/auth/domain/repositories/auth_repo.dart';
 import 'package:resto/features/auth/presentation/manager/login/login_cubit.dart';
-import 'package:resto/features/home/data/repos/home_repo.dart';
+import 'package:resto/features/auth/presentation/manager/register/register_cubit.dart';
+import 'package:resto/features/home/data/repos/home_repo_impl.dart';
+import 'package:resto/features/home/domain/repositories/home_repo.dart';
 import 'package:resto/features/home/presentation/manager/categories/categories_cubit.dart';
 import 'package:resto/features/home/presentation/manager/products/products_cubit.dart';
-
-import '../../features/auth/presentation/manager/register/register_cubit.dart';
 
 final getIt = GetIt.instance;
 
 Future<void> setupServiceLocator() async {
   getIt.registerLazySingleton<DioClient>(() => DioClient());
-  getIt.registerLazySingleton<ApiService>(() => ApiService());
+  getIt.registerLazySingleton<ApiService>(() => ApiService(getIt()));
 
-  getIt.registerLazySingleton<AuthRepo>(() => AuthRepoimpl());
+  getIt.registerLazySingleton<AuthRepo>(() => AuthRepoImpl(getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
   getIt.registerFactory<RegisterCubit>(() => RegisterCubit(getIt()));
 
-  getIt.registerLazySingleton<HomeRepo>(() => HomeRepoImpl());
+  getIt.registerLazySingleton<HomeRepo>(() => HomeRepoImpl(getIt()));
   getIt.registerFactory<ProductsCubit>(() => ProductsCubit(getIt()));
   getIt.registerFactory<CategoriesCubit>(() => CategoriesCubit(getIt()));
 }

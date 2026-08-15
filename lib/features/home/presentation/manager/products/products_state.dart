@@ -8,7 +8,7 @@ class ProductsInitial extends ProductsState {}
 class ProductsLoading extends ProductsState {}
 
 class ProductsSuccess extends ProductsState {
-  final List<ProductModel> products;
+  final List<ProductEntity> products;
   ProductsSuccess(this.products);
 }
 

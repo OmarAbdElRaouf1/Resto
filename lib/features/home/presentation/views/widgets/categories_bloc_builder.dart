@@ -18,7 +18,7 @@ class CategoriesBlocBuilder extends StatelessWidget {
                   if (state is CategoriesSuccess)
                     for (final category in state.categories)
                       CategoryItem(
-                        id: category.sId,
+                        id: category.id,
                         name: category.name ?? '',
                       ),
                 ];

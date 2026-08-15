@@ -1,16 +1,15 @@
 import 'package:resto/core/network/api_edpoints.dart';
 import 'package:resto/core/network/api_service.dart';
 import 'package:resto/features/home/data/models/products_model.dart';
+import 'package:resto/features/home/domain/entities/product_entity.dart';
+import 'package:resto/features/home/domain/repositories/home_repo.dart';
 
-abstract class HomeRepo {
-  Future<List<ProductModel>> getProducts({String? categoryId});
-  Future<List<CategoryModel>> getCategories();
-}
+class HomeRepoImpl implements HomeRepo {
+  HomeRepoImpl(this.apiService);
+  final ApiService apiService;
 
-class HomeRepoImpl extends HomeRepo {
-  final ApiService apiService = ApiService();
   @override
-  Future<List<ProductModel>> getProducts({String? categoryId}) async {
+  Future<List<ProductEntity>> getProducts({String? categoryId}) async {
     try {
       final response = await apiService.get(
         ApiEdpoints.products,
@@ -23,10 +22,12 @@ class HomeRepoImpl extends HomeRepo {
   }
 
   @override
-  Future<List<CategoryModel>> getCategories() async {
+  Future<List<CategoryEntity>> getCategories() async {
     try {
       final response = await apiService.get(ApiEdpoints.categories);
-      return (response as List).map((e) => CategoryModel.fromJson(e)).toList();
+      return (response as List)
+          .map((e) => CategoryModel.fromJson(e))
+          .toList();
     } on Exception catch (e) {
       throw Exception('Failed to load categories: $e');
     }

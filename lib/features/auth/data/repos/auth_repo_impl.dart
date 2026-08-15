@@ -2,21 +2,15 @@ import 'package:resto/core/helpers/shared_prefs.dart';
 import 'package:resto/core/network/api_edpoints.dart';
 import 'package:resto/core/network/api_service.dart';
 import 'package:resto/features/auth/data/models/user_model.dart';
+import 'package:resto/features/auth/domain/entities/user_entity.dart';
+import 'package:resto/features/auth/domain/repositories/auth_repo.dart';
 
-abstract class AuthRepo {
-  Future<UserModel> login({required String email, required String password});
-  Future<UserModel> register({
-    required String name,
-    required String email,
-    required String password,
-  });
-}
+class AuthRepoImpl implements AuthRepo {
+  AuthRepoImpl(this.apiService);
+  final ApiService apiService;
 
-class AuthRepoimpl implements AuthRepo {
-  ApiService apiService = ApiService();
-  //login
   @override
-  Future<UserModel> login({
+  Future<UserEntity> login({
     required String email,
     required String password,
   }) async {
@@ -33,7 +27,7 @@ class AuthRepoimpl implements AuthRepo {
   }
 
   @override
-  Future<UserModel> register({
+  Future<UserEntity> register({
     required String name,
     required String email,
     required String password,
@@ -50,7 +44,4 @@ class AuthRepoimpl implements AuthRepo {
     await SharedPrefs.saveUserName(user.name);
     return user;
   }
-  //register
-
-  //get user data
 }

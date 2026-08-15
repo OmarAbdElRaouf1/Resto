@@ -74,8 +74,8 @@ class _CustomTextfieldState extends State<CustomTextfield> {
                   splashRadius: 20,
                   icon: Icon(
                     _obscureText
-                        ? CupertinoIcons.eye
-                        : CupertinoIcons.eye_slash,
+                        ? CupertinoIcons.eye_slash
+                        : CupertinoIcons.eye,
                     color: Colors.white60,
                     size: 19,
                   ),

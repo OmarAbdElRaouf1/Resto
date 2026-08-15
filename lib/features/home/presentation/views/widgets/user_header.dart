@@ -15,34 +15,40 @@ class UserHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                CustomText(
-                  text: 'Hello, ',
-                  size: 30,
-                  weight: FontWeight.w300,
-                  color: Colors.grey.shade400,
-                ),
-                CustomText(
-                  text: userName,
-                  size: 30,
-                  weight: FontWeight.w200,
-                  color: Colors.white,
-                ),
-              ],
-            ),
-            CustomText(
-              text: 'HUNGRY RIGHT NOW 🙄?',
-              size: 14,
-              weight: FontWeight.w500,
-              color: Colors.grey.shade100,
-            ),
-          ],
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  CustomText(
+                    text: 'Hello, ',
+                    size: 30,
+                    weight: FontWeight.w300,
+                    color: Colors.grey.shade400,
+                    maxLines: 1,
+                  ),
+                  Flexible(
+                    child: CustomText(
+                      text: userName,
+                      size: 30,
+                      weight: FontWeight.w200,
+                      color: Colors.white,
+                      maxLines: 1,
+                    ),
+                  ),
+                ],
+              ),
+              CustomText(
+                text: 'HUNGRY RIGHT NOW 🙄? Restoooooo',
+                size: 14,
+                weight: FontWeight.w500,
+                color: Colors.grey.shade100,
+              ),
+            ],
+          ),
         ),
-        Spacer(),
+        const SizedBox(width: 12),
         GestureDetector(
           onTap: () => SharedPrefs.removeToken().then((_) {
             Navigator.pushReplacementNamed(context, '/loginView');

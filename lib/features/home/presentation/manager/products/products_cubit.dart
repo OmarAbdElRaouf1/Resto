@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
-import 'package:resto/features/home/data/models/products_model.dart';
-import 'package:resto/features/home/data/repos/home_repo.dart';
+import 'package:resto/features/home/domain/entities/product_entity.dart';
+import 'package:resto/features/home/domain/repositories/home_repo.dart';
 
 part 'products_state.dart';
 

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
-import 'package:resto/features/auth/data/models/user_model.dart';
-import 'package:resto/features/auth/data/repos/auth_repo.dart';
+import 'package:flutter/foundation.dart';
+import 'package:resto/features/auth/domain/entities/user_entity.dart';
+import 'package:resto/features/auth/domain/repositories/auth_repo.dart';
 
 part 'login_state.dart';
 
@@ -10,31 +10,14 @@ class LoginCubit extends Cubit<LoginState> {
 
   final AuthRepo authRepo;
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  Future<void> login() async {
+  Future<void> login({required String email, required String password}) async {
     emit(LoginLoading());
 
     try {
-      final user = await authRepo.login(
-        email: emailController.text.trim(),
-        password: passwordController.text,
-      );
-
+      final user = await authRepo.login(email: email, password: password);
       emit(LoginSuccess(user));
     } catch (e) {
       emit(LoginFailure(errorMessage: e.toString()));
     }
-  }
-
-  @override
-  Future<void> close() {
-    emailController.dispose();
-    passwordController.dispose();
-
-    return super.close();
   }
 }

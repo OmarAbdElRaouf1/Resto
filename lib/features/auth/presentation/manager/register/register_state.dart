@@ -8,7 +8,7 @@ class RegisterInitial extends RegisterState {}
 class RegisterLoading extends RegisterState {}
 
 class RegisterSuccess extends RegisterState {
-  final UserModel user;
+  final UserEntity user;
   RegisterSuccess(this.user);
 }
 

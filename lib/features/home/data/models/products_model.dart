@@ -1,61 +1,51 @@
-class ProductModel {
-  String? sId;
-  String? name;
-  String? description;
-  int? price;
-  String? image;
-  CategoryModel? category;
-  List<String>? ingredients;
-  bool? isAvailable;
-  bool? isSpicy;
-  int? rating;
-  String? createdAt;
-  String? updatedAt;
-  int? iV;
+import 'package:resto/features/home/domain/entities/product_entity.dart';
 
+class ProductModel extends ProductEntity {
   ProductModel({
-    this.sId,
-    this.name,
-    this.description,
-    this.price,
-    this.image,
-    this.category,
-    this.ingredients,
-    this.isAvailable,
-    this.isSpicy,
-    this.rating,
+    super.id,
+    super.name,
+    super.description,
+    super.price,
+    super.image,
+    super.category,
+    super.ingredients,
+    super.isAvailable,
+    super.isSpicy,
+    super.rating,
     this.createdAt,
     this.updatedAt,
     this.iV,
   });
 
-  ProductModel.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    name = json['name'];
-    description = json['description'];
-    price = json['price'];
-    image = json['image'];
-    category = json['category'] != null
-        ? CategoryModel.fromJson(json['category'])
-        : null;
-    ingredients = json['ingredients'].cast<String>();
-    isAvailable = json['isAvailable'];
-    isSpicy = json['isSpicy'];
-    rating = json['rating'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    iV = json['__v'];
+  final String? createdAt;
+  final String? updatedAt;
+  final int? iV;
+
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    return ProductModel(
+      id: json['_id'],
+      name: json['name'],
+      description: json['description'],
+      price: json['price'],
+      image: json['image'],
+      category: json['category'] != null
+          ? CategoryModel.fromJson(json['category'])
+          : null,
+      ingredients: (json['ingredients'] as List?)?.cast<String>(),
+      isAvailable: json['isAvailable'],
+      isSpicy: json['isSpicy'],
+      rating: json['rating'],
+      createdAt: json['createdAt'],
+      updatedAt: json['updatedAt'],
+      iV: json['__v'],
+    );
   }
 }
 
-class CategoryModel {
-  String? sId;
-  String? name;
+class CategoryModel extends CategoryEntity {
+  CategoryModel({super.id, super.name});
 
-  CategoryModel({this.sId, this.name});
-
-  CategoryModel.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    name = json['name'];
+  factory CategoryModel.fromJson(Map<String, dynamic> json) {
+    return CategoryModel(id: json['_id'], name: json['name']);
   }
 }

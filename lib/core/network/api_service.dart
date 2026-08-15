@@ -3,7 +3,9 @@ import 'package:resto/core/network/api_exceptions.dart';
 import 'package:resto/core/network/dio_client.dart';
 
 class ApiService {
-  final DioClient _dioClient = DioClient();
+  ApiService(this._dioClient);
+
+  final DioClient _dioClient;
 
   /// CRUD METHODS
 

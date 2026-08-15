@@ -2,28 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
 import 'package:resto/core/theme/app_colors.dart';
+import 'package:resto/core/widgets/custom_button.dart';
 import 'package:resto/core/widgets/custom_text.dart';
-import 'package:resto/features/home/data/models/products_model.dart';
+import 'package:resto/features/home/domain/entities/product_entity.dart';
+import 'package:resto/features/home/presentation/views/widgets/ingridents_tag.dart';
+import 'package:resto/features/home/presentation/views/widgets/product_reviews_section.dart';
 
 class ProductDetailsView extends StatelessWidget {
   const ProductDetailsView({super.key, required this.product});
 
-  final ProductModel product;
+  final ProductEntity product;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
+          child: CustomButton(
+            text: 'Add to Cart',
+            onTap: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('${product.name ?? 'Item'} added to cart'),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             pinned: true,
-            expandedHeight: 280.h,
+            expandedHeight: 300.h,
             backgroundColor: AppColors.primaryColor,
+            iconTheme: const IconThemeData(color: Colors.white),
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.network(
-                product.image ?? '',
-                fit: BoxFit.cover,
-              ),
+              background: Image.network(product.image ?? '', fit: BoxFit.cover),
             ),
           ),
           SliverToBoxAdapter(
@@ -74,12 +90,9 @@ class ProductDetailsView extends StatelessWidget {
                         spacing: 8,
                         children: [
                           if (product.isSpicy == true)
-                            const _Tag(label: 'Spicy', color: Colors.red),
+                            const Tag(label: 'Spicy', color: Colors.red),
                           if (product.isAvailable == false)
-                            const _Tag(
-                              label: 'Unavailable',
-                              color: Colors.grey,
-                            ),
+                            const Tag(label: 'Unavailable', color: Colors.grey),
                         ],
                       ),
                     ),
@@ -112,10 +125,14 @@ class ProductDetailsView extends StatelessWidget {
                       runSpacing: 8,
                       children: [
                         for (final ingredient in product.ingredients!)
-                          _Tag(label: ingredient, color: AppColors.primaryColor),
+                          Tag(label: ingredient, color: AppColors.primaryColor),
                       ],
                     ),
                   ],
+
+                  Gap(24.h),
+
+                  const ProductReviewsSection(),
                 ],
               ),
             ),
@@ -152,25 +169,6 @@ class _RatingBadge extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _Tag extends StatelessWidget {
-  const _Tag({required this.label, required this.color});
-
-  final String label;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: CustomText(text: label, size: 12, weight: FontWeight.w500, color: color),
     );
   }
 }
