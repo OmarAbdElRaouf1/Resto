@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 class SearchField extends StatelessWidget {
   const SearchField({super.key, required this.controller, this.onChanged});
@@ -9,35 +10,33 @@ class SearchField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      height: 48.h,
       child: TextField(
         onChanged: onChanged,
-        cursorHeight: 15,
+        cursorHeight: 15.h,
         controller: controller,
-        style: const TextStyle(
-          color: Colors.white, // لون الكلام المكتوب
-          fontSize: 16,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 15.sp,
         ),
-
         decoration: InputDecoration(
           filled: true,
           contentPadding: EdgeInsets.zero,
           hintText: 'Search..',
-
-          hintStyle: TextStyle(color: Colors.white),
+          hintStyle: TextStyle(color: Colors.white, fontSize: 14.sp),
           fillColor: Colors.transparent,
           prefixIcon: Icon(
             CupertinoIcons.search,
-            size: 18,
+            size: 18.r,
             color: Colors.white,
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(40.r),
             borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
-            borderSide: BorderSide(color: Colors.white),
+            borderRadius: BorderRadius.circular(40.r),
+            borderSide: const BorderSide(color: Colors.white),
           ),
         ),
       ),

@@ -36,12 +36,12 @@ class HomeAppBar extends StatelessWidget {
           filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
           child: Container(
             color: Colors.white.withValues(alpha: 0.1),
-            padding: EdgeInsets.only(top: 70.h, right: 20.w, left: 20.w),
+            padding: EdgeInsets.only(top: 50.h, right: 20.w, left: 20.w),
             child: Column(
               children: [
                 UserHeader(userName: userName, userImage: userImage),
 
-                Gap(20.h),
+                Gap(12.h),
 
                 SearchField(
                   controller: searchController,
