@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
@@ -23,68 +22,66 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20.r),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 20, sigmaY: 500),
-        child: Card(
-          color: Colors.white,
-          margin: EdgeInsets.zero,
-          child: InkWell(
-            onTap: onTap,
-            borderRadius: BorderRadius.circular(20.r),
-            child: Padding(
-              padding: EdgeInsets.all(6.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  /// Image
-                  Expanded(
-                    child: Center(
-                      child: Hero(
-                        tag: heroTag,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16.r),
-                          child: Image.network(
-                            image,
-                            width: double.infinity,
-                            height: double.infinity,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                Icon(Icons.broken_image,
-                                    size: 36.r, color: Colors.grey),
-                          ),
+      child: Card(
+        color: Colors.white,
+        margin: EdgeInsets.zero,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(20.r),
+          child: Padding(
+            padding: EdgeInsets.all(6.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                /// Image
+                Expanded(
+                  child: Center(
+                    child: Hero(
+                      tag: heroTag,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16.r),
+                        child: Image.network(
+                          image,
+                          width: double.infinity,
+                          height: double.infinity,
+                          fit: BoxFit.cover,
+                          cacheWidth: 300,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Icon(Icons.broken_image,
+                                  size: 36.r, color: Colors.grey),
                         ),
                       ),
                     ),
                   ),
-                  Gap(8.h),
+                ),
+                Gap(8.h),
 
-                  /// Details
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomText(
-                          text: text,
-                          weight: FontWeight.w600,
-                          size: 15.sp,
-                          maxLines: 1,
-                          color: Colors.green.shade900,
-                        ),
-                        Gap(4.h),
-                        CustomText(
-                          text: desc,
-                          size: 11.sp,
-                          maxLines: 2,
-                          color: AppColors.primaryColor,
-                          weight: FontWeight.w300,
-                        ),
-                        Gap(4.h),
-                      ],
-                    ),
+                /// Details
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomText(
+                        text: text,
+                        weight: FontWeight.w600,
+                        size: 15.sp,
+                        maxLines: 1,
+                        color: Colors.green.shade900,
+                      ),
+                      Gap(4.h),
+                      CustomText(
+                        text: desc,
+                        size: 11.sp,
+                        maxLines: 2,
+                        color: AppColors.primaryColor,
+                        weight: FontWeight.w300,
+                      ),
+                      Gap(4.h),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

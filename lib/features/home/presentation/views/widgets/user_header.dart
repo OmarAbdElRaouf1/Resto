@@ -67,6 +67,7 @@ class UserHeader extends StatelessWidget {
               child: Image.network(
                 userImage,
                 fit: BoxFit.cover,
+                cacheWidth: 100,
                 errorBuilder: (context, err, builder) =>
                     Icon(Icons.person, color: Colors.white, size: 24.r),
               ),
