@@ -22,33 +22,22 @@ class ProductSkeleton extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Image
-              Container(
-                width: double.infinity,
-                height: 150.h,
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(14.r),
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(14.r),
+                  ),
                 ),
               ),
 
-              Gap(12.h),
+              Gap(10.h),
 
               // Product name
               Container(
                 width: 120.w,
-                height: 16.h,
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-              ),
-
-              Gap(8.h),
-
-              // Description
-              Container(
-                width: double.infinity,
-                height: 12.h,
+                height: 14.h,
                 decoration: BoxDecoration(
                   color: Colors.grey,
                   borderRadius: BorderRadius.circular(8.r),
@@ -57,39 +46,28 @@ class ProductSkeleton extends StatelessWidget {
 
               Gap(6.h),
 
+              // Description
               Container(
-                width: 80.w,
-                height: 12.h,
+                width: double.infinity,
+                height: 10.h,
                 decoration: BoxDecoration(
                   color: Colors.grey,
                   borderRadius: BorderRadius.circular(8.r),
                 ),
               ),
 
-              const Spacer(),
+              Gap(4.h),
 
-              // Price / rating
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 60.w,
-                    height: 16.h,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                  ),
-                  Container(
-                    width: 40.w,
-                    height: 16.h,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                  ),
-                ],
+              Container(
+                width: 80.w,
+                height: 10.h,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
               ),
+
+              Gap(6.h),
             ],
           ),
         ),

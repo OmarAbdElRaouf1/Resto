@@ -19,51 +19,53 @@ class RegisterView extends StatelessWidget {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         backgroundColor: AppColors.primaryColor,
-        body: BlocConsumer<RegisterCubit, RegisterState>(
-          listener: (context, state) {
-            if (state is RegisterFailure) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.errorMessage ?? 'Registration failed'),
-                  backgroundColor: Colors.redAccent,
+        body: SingleChildScrollView(
+          child: BlocConsumer<RegisterCubit, RegisterState>(
+            listener: (context, state) {
+              if (state is RegisterFailure) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.errorMessage ?? 'Registration failed'),
+                    backgroundColor: Colors.redAccent,
+                  ),
+                );
+              } else if (state is RegisterSuccess) {
+                showRegisterSuccessDialog(context);
+              }
+            },
+            builder: (context, state) {
+              final isLoading = state is RegisterLoading;
+
+              return Center(
+                child: FadeSlideIn(
+                  duration: const Duration(milliseconds: 450),
+                  child: Column(
+                    children: [
+                      Gap(100.h),
+
+                      SvgPicture.asset('assets/vectors/resto_logo.svg'),
+
+                      Gap(20.h),
+
+                      RegisterForm(
+                        isLoading: isLoading,
+                        onSubmit: (name, email, password) =>
+                            context.read<RegisterCubit>().register(
+                              name: name,
+                              email: email,
+                              password: password,
+                            ),
+                      ),
+
+                      Gap(20.h),
+
+                      HaveAccount(),
+                    ],
+                  ),
                 ),
               );
-            } else if (state is RegisterSuccess) {
-              showRegisterSuccessDialog(context);
-            }
-          },
-          builder: (context, state) {
-            final isLoading = state is RegisterLoading;
-
-            return Center(
-              child: FadeSlideIn(
-                duration: const Duration(milliseconds: 450),
-                child: Column(
-                  children: [
-                    Gap(100.h),
-
-                    SvgPicture.asset('assets/vectors/resto_logo.svg'),
-
-                    Gap(20.h),
-
-                    RegisterForm(
-                      isLoading: isLoading,
-                      onSubmit: (name, email, password) =>
-                          context.read<RegisterCubit>().register(
-                            name: name,
-                            email: email,
-                            password: password,
-                          ),
-                    ),
-
-                    Gap(20.h),
-
-                    HaveAccount(),
-                  ],
-                ),
-              ),
-            );
-          },
+            },
+          ),
         ),
       ),
     );

@@ -20,48 +20,50 @@ class LoginView extends StatelessWidget {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         backgroundColor: AppColors.primaryColor,
-        body: BlocConsumer<LoginCubit, LoginState>(
-          listener: (context, state) {
-            if (state is LoginFailure) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.errorMessage ?? 'Login failed'),
-                  backgroundColor: Colors.redAccent,
+        body: SingleChildScrollView(
+          child: BlocConsumer<LoginCubit, LoginState>(
+            listener: (context, state) {
+              if (state is LoginFailure) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.errorMessage ?? 'Login failed'),
+                    backgroundColor: Colors.redAccent,
+                  ),
+                );
+              } else if (state is LoginSuccess) {
+                context.pushAndRemoveUntil(Routes.homeView);
+              }
+            },
+            builder: (context, state) {
+              final isLoading = state is LoginLoading;
+          
+              return Center(
+                child: FadeSlideIn(
+                  duration: const Duration(milliseconds: 450),
+                  child: Column(
+                    children: [
+                      Gap(100.h),
+          
+                      SvgPicture.asset('assets/vectors/resto_logo.svg'),
+          
+                      Gap(20.h),
+          
+                      LoginForm(
+                        isLoading: isLoading,
+                        onSubmit: (email, password) => context
+                            .read<LoginCubit>()
+                            .login(email: email, password: password),
+                      ),
+          
+                      Gap(20.h),
+          
+                      DontHaveAccount(),
+                    ],
+                  ),
                 ),
               );
-            } else if (state is LoginSuccess) {
-              context.pushAndRemoveUntil(Routes.homeView);
-            }
-          },
-          builder: (context, state) {
-            final isLoading = state is LoginLoading;
-
-            return Center(
-              child: FadeSlideIn(
-                duration: const Duration(milliseconds: 450),
-                child: Column(
-                  children: [
-                    Gap(100.h),
-
-                    SvgPicture.asset('assets/vectors/resto_logo.svg'),
-
-                    Gap(20.h),
-
-                    LoginForm(
-                      isLoading: isLoading,
-                      onSubmit: (email, password) => context
-                          .read<LoginCubit>()
-                          .login(email: email, password: password),
-                    ),
-
-                    Gap(20.h),
-
-                    DontHaveAccount(),
-                  ],
-                ),
-              ),
-            );
-          },
+            },
+          ),
         ),
       ),
     );

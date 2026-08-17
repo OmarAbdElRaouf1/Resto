@@ -67,7 +67,7 @@ class ProductBlocBuilder extends StatelessWidget {
           sliver: SliverGrid(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 0.7,
+              childAspectRatio: 0.68,
               mainAxisSpacing: 8,
               crossAxisSpacing: 8,
             ),

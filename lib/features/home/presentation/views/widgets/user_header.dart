@@ -51,21 +51,24 @@ class UserHeader extends StatelessWidget {
             ],
           ),
         ),
-        Gap(12),
+        Gap(12.w),
         GestureDetector(
-          onTap: () => SharedPrefs.removeToken().then((_) {
-            Navigator.pushReplacementNamed(context, '/loginView');
-          }),
+          onTap: () async {
+            await SharedPrefs.removeToken();
+            if (context.mounted) {
+              Navigator.pushReplacementNamed(context, '/loginView');
+            }
+          },
           child: CircleAvatar(
-            radius: 30,
+            radius: 28.r,
             backgroundColor: AppColors.primaryColor,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(200),
+              borderRadius: BorderRadius.circular(200.r),
               child: Image.network(
                 userImage,
                 fit: BoxFit.cover,
                 errorBuilder: (context, err, builder) =>
-                    Icon(Icons.person, color: Colors.white),
+                    Icon(Icons.person, color: Colors.white, size: 24.r),
               ),
             ),
           ),

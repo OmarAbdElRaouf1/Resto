@@ -22,55 +22,64 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(20.r),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 20, sigmaY: 500),
         child: Card(
           color: Colors.white,
+          margin: EdgeInsets.zero,
           child: InkWell(
             onTap: onTap,
+            borderRadius: BorderRadius.circular(20.r),
             child: Padding(
-              padding: const EdgeInsets.all(5),
+              padding: EdgeInsets.all(6.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// Image
-                  Center(
-                    child: Hero(
-                      tag: heroTag,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.network(
-                          image,
-                          width: 200,
-                          height: 140,
-                          fit: BoxFit.fitWidth,
+                  Expanded(
+                    child: Center(
+                      child: Hero(
+                        tag: heroTag,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16.r),
+                          child: Image.network(
+                            image,
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                                Icon(Icons.broken_image,
+                                    size: 36.r, color: Colors.grey),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  Gap(15.h),
+                  Gap(8.h),
 
                   /// Details
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                    padding: EdgeInsets.symmetric(horizontal: 4.w),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomText(
                           text: text,
-                          weight: FontWeight.w300,
-                          size: 18,
+                          weight: FontWeight.w600,
+                          size: 15.sp,
+                          maxLines: 1,
                           color: Colors.green.shade900,
                         ),
-                        Gap(5),
+                        Gap(4.h),
                         CustomText(
                           text: desc,
-                          size: 12,
+                          size: 11.sp,
+                          maxLines: 2,
                           color: AppColors.primaryColor,
                           weight: FontWeight.w300,
                         ),
-                        Gap(10),
+                        Gap(4.h),
                       ],
                     ),
                   ),
