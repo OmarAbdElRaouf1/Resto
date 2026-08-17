@@ -21,10 +21,18 @@ class _HomeViewBodyState extends State<HomeViewBody> {
 
   String userName = 'Guest';
 
+  final TextEditingController _searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     _loadUserName();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   Future<void> _loadUserName() async {
@@ -55,7 +63,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
               userName: userName,
               userImage:
                   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvts5aHBstDkR8PigS4RmZkbZy78zpZoSuOw&s',
-              searchController: TextEditingController(),
+              searchController: _searchController,
               onSearchChanged: (_) {},
             ),
 
