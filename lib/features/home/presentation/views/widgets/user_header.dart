@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:resto/core/helpers/shared_prefs.dart';
 import 'package:resto/core/theme/app_colors.dart';
 import 'package:resto/core/widgets/custom_text.dart';
 
@@ -53,12 +52,7 @@ class UserHeader extends StatelessWidget {
         ),
         Gap(12.w),
         GestureDetector(
-          onTap: () async {
-            await SharedPrefs.removeToken();
-            if (context.mounted) {
-              Navigator.pushReplacementNamed(context, '/loginView');
-            }
-          },
+          onTap: () async {},
           child: CircleAvatar(
             radius: 28.r,
             backgroundColor: AppColors.primaryColor,

@@ -2,12 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:glass_bottom_navigation/nav_style.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:resto/core/theme/app_colors.dart';
 import 'package:resto/features/cart/cart_view.dart';
 import 'package:resto/features/home/presentation/views/home_view.dart';
-import 'package:resto/features/profile/profile_view.dart';
+import 'package:resto/features/profile/presentation/views/profile_view.dart';
 
 class RootView extends StatefulWidget {
   const RootView({super.key});

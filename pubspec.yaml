@@ -46,6 +46,7 @@ dependencies:
   glass_bottom_navigation: ^0.2.0
   google_nav_bar: ^5.0.7
   line_icons: ^2.0.3
+  flutter_native_splash: ^2.4.8
 
 dev_dependencies:
   flutter_test:

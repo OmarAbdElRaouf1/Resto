@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
@@ -25,38 +23,44 @@ class HomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       surfaceTintColor: Colors.transparent,
+      backgroundColor: Colors.transparent,
+      shadowColor: Colors.transparent,
       elevation: 0,
+      scrolledUnderElevation: 0,
+
       pinned: true,
       floating: false,
+
       toolbarHeight: 170.h,
-      scrolledUnderElevation: 0,
-      backgroundColor: AppColors.primaryColor,
+
       automaticallyImplyLeading: false,
+
+      clipBehavior: Clip.antiAlias,
+
       flexibleSpace: _buildFlexibleSpace(),
     );
   }
 
   Widget _buildFlexibleSpace() {
     return ClipRRect(
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-        child: Container(
-          padding: EdgeInsets.only(top: 50.h, right: 20.w, left: 20.w),
-          decoration: BoxDecoration(
-            color: AppColors.primaryColor.withValues(alpha: 0.90),
-          ),
-          child: Column(
-            children: [
-              UserHeader(userName: userName, userImage: userImage),
+      borderRadius: BorderRadius.only(
+        bottomLeft: Radius.circular(32.r),
+        bottomRight: Radius.circular(32.r),
+      ),
+      child: Container(
+        padding: EdgeInsets.only(top: 50.h, left: 20.w, right: 20.w),
+        decoration: BoxDecoration(color: AppColors.primaryColor),
+        child: Column(
+          children: [
+            UserHeader(userName: userName, userImage: userImage),
 
-              Gap(12.h),
+            Gap(33.h),
 
-              SearchField(
-                controller: searchController,
-                onChanged: onSearchChanged,
-              ),
-            ],
-          ),
+            SearchField(
+              controller: searchController,
+              onChanged: onSearchChanged,
+            ),
+          ],
         ),
       ),
     );
