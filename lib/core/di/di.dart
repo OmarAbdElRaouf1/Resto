@@ -5,6 +5,7 @@ import 'package:resto/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:resto/features/auth/domain/repositories/auth_repo.dart';
 import 'package:resto/features/auth/presentation/manager/login/login_cubit.dart';
 import 'package:resto/features/auth/presentation/manager/register/register_cubit.dart';
+import 'package:resto/features/auth/presentation/manager/session/session_cubit.dart';
 import 'package:resto/features/cart/data/repos/cart_repo_impl.dart';
 import 'package:resto/features/cart/domain/repositories/cart_repo.dart';
 import 'package:resto/features/cart/presentation/manager/cubit/cart_cubit.dart';
@@ -12,6 +13,9 @@ import 'package:resto/features/home/data/repos/home_repo_impl.dart';
 import 'package:resto/features/home/domain/repositories/home_repo.dart';
 import 'package:resto/features/home/presentation/manager/categories/categories_cubit.dart';
 import 'package:resto/features/home/presentation/manager/products/products_cubit.dart';
+import 'package:resto/features/order_history/data/repos/order_history_repo_impl.dart';
+import 'package:resto/features/order_history/domain/repositories/order_history_repo.dart';
+import 'package:resto/features/order_history/presentation/manager/cubit/order_history_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -22,6 +26,7 @@ Future<void> setupServiceLocator() async {
   getIt.registerLazySingleton<AuthRepo>(() => AuthRepoImpl(getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
   getIt.registerFactory<RegisterCubit>(() => RegisterCubit(getIt()));
+  getIt.registerLazySingleton<SessionCubit>(() => SessionCubit(getIt()));
 
   getIt.registerLazySingleton<HomeRepo>(() => HomeRepoImpl(getIt()));
   getIt.registerFactory<ProductsCubit>(() => ProductsCubit(getIt()));
@@ -32,5 +37,12 @@ Future<void> setupServiceLocator() async {
   );
   getIt.registerFactory<CartCubit>(
     () => CartCubit(cartRepo: getIt<CartRepo>()),
+  );
+
+  getIt.registerLazySingleton<OrderHistoryRepo>(
+    () => OrderHistoryRepoImpl(getIt<ApiService>()),
+  );
+  getIt.registerLazySingleton<OrderHistoryCubit>(
+    () => OrderHistoryCubit(orderHistoryRepo: getIt<OrderHistoryRepo>()),
   );
 }

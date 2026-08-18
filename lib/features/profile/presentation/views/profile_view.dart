@@ -1,34 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
-import 'package:resto/core/helpers/shared_prefs.dart';
 import 'package:resto/core/theme/app_colors.dart';
+import 'package:resto/features/auth/presentation/manager/session/session_cubit.dart';
 import 'package:resto/features/profile/presentation/views/widgets/logout_button.dart';
 import 'package:resto/features/profile/presentation/views/widgets/profile_header.dart';
 import 'package:resto/features/profile/presentation/views/widgets/profile_menu_item.dart';
 import 'package:resto/features/profile/presentation/views/widgets/profile_menu_section.dart';
 
-class ProfileView extends StatefulWidget {
+class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
-
-  @override
-  State<ProfileView> createState() => _ProfileViewState();
-}
-
-class _ProfileViewState extends State<ProfileView> {
-  String userName = 'Guest';
-
-  @override
-  void initState() {
-    super.initState();
-    _loadUserName();
-  }
-
-  Future<void> _loadUserName() async {
-    final savedName = await SharedPrefs.getUserName();
-    if (!mounted || savedName == null) return;
-    setState(() => userName = savedName);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +21,20 @@ class _ProfileViewState extends State<ProfileView> {
       ),
       body: Column(
         children: [
-          ProfileHeader(
-            userName: userName,
-            userImage:
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvts5aHBstDkR8PigS4RmZkbZy78zpZoSuOw&s',
+          BlocBuilder<SessionCubit, SessionState>(
+            builder: (context, state) {
+              final userName = state is SessionLoaded
+                  ? state.userName
+                  : 'Guest';
+              final phone = state is SessionLoaded ? state.phone : null;
+
+              return ProfileHeader(
+                userName: userName,
+                phone: phone,
+                userImage:
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvts5aHBstDkR8PigS4RmZkbZy78zpZoSuOw&s',
+              );
+            },
           ),
           Expanded(
             child: ListView(

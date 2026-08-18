@@ -46,9 +46,11 @@ class ProductItem extends StatelessWidget {
                           height: double.infinity,
                           fit: BoxFit.cover,
                           cacheWidth: 300,
-                          errorBuilder: (context, error, stackTrace) =>
-                              Icon(Icons.broken_image,
-                                  size: 36.r, color: Colors.grey),
+                          errorBuilder: (context, error, stackTrace) => Icon(
+                            Icons.broken_image,
+                            size: 36.r,
+                            color: Colors.grey,
+                          ),
                         ),
                       ),
                     ),

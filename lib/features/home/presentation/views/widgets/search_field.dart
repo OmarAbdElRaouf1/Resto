@@ -15,10 +15,7 @@ class SearchField extends StatelessWidget {
         onChanged: onChanged,
         cursorHeight: 15.h,
         controller: controller,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 15.sp,
-        ),
+        style: TextStyle(color: Colors.white, fontSize: 15.sp),
         decoration: InputDecoration(
           filled: true,
           contentPadding: EdgeInsets.zero,

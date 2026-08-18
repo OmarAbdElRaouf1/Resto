@@ -1,11 +1,19 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:gap/gap.dart';
 import 'package:glass_bottom_navigation/nav_style.dart';
+import 'package:resto/core/di/di.dart';
 import 'package:resto/core/theme/app_colors.dart';
+import 'package:resto/features/auth/presentation/manager/session/session_cubit.dart';
 import 'package:resto/features/cart/presentation/cart_view.dart';
 import 'package:resto/features/home/presentation/views/home_view.dart';
+import 'package:resto/features/order_history/presentation/manager/cubit/order_history_cubit.dart';
+import 'package:resto/features/order_history/presentation/views/order_history_view.dart';
 import 'package:resto/features/profile/presentation/views/profile_view.dart';
+
+const int _historyTabIndex = 2;
 
 class RootView extends StatefulWidget {
   const RootView({super.key});
@@ -24,7 +32,7 @@ class _RootViewState extends State<RootView> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    screens = const [HomeView(), CartView(), Placeholder(), ProfileView()];
+    screens = const [HomeView(), CartView(), OrderHistoryView(), ProfileView()];
 
     iconControllers = List.generate(
       screens.length,
@@ -35,6 +43,8 @@ class _RootViewState extends State<RootView> with TickerProviderStateMixin {
     );
 
     iconControllers[currentScreen].forward();
+
+    getIt<SessionCubit>().loadSession();
   }
 
   @override
@@ -56,25 +66,32 @@ class _RootViewState extends State<RootView> with TickerProviderStateMixin {
     });
 
     iconControllers[index].forward();
+
+    if (index == _historyTabIndex) {
+      getIt<OrderHistoryCubit>().getMyOrders();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      child: Scaffold(
-        extendBody: true,
+    return BlocProvider.value(
+      value: getIt<SessionCubit>(),
+      child: PopScope(
+        canPop: false,
+        child: Scaffold(
+          extendBody: true,
 
-        body: IndexedStack(index: currentScreen, children: screens),
+          body: IndexedStack(index: currentScreen, children: screens),
 
-        bottomNavigationBar: defaultTargetPlatform == TargetPlatform.iOS
-            ? _buildIOSNavigation()
-            : _buildAndroidNavigation(),
+          bottomNavigationBar: defaultTargetPlatform == TargetPlatform.iOS
+              ? buildIOSNavigation()
+              : buildAndroidNavigation(),
+        ),
       ),
     );
   }
 
-  Widget _buildIOSNavigation() {
+  Widget buildIOSNavigation() {
     return GlassBottomBar(
       items: const [
         GlassBarItem(
@@ -89,7 +106,7 @@ class _RootViewState extends State<RootView> with TickerProviderStateMixin {
         ),
         GlassBarItem(
           icon: Icons.history,
-          label: 'History',
+          label: 'My Orders',
           nativeSymbolName: 'clock.fill',
         ),
         GlassBarItem(
@@ -108,7 +125,7 @@ class _RootViewState extends State<RootView> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildAndroidNavigation() {
+  Widget buildAndroidNavigation() {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.primaryColor,
@@ -149,7 +166,7 @@ class _RootViewState extends State<RootView> with TickerProviderStateMixin {
                 child: _buildNavItem(
                   index: 2,
                   icon: Icons.history,
-                  label: 'History',
+                  label: 'My Orders',
                 ),
               ),
               Expanded(
@@ -198,7 +215,7 @@ class _RootViewState extends State<RootView> with TickerProviderStateMixin {
             ),
 
             if (isSelected) ...[
-              SizedBox(width: 5.w),
+              Gap(5.w),
               Flexible(
                 child: Text(
                   label,

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
+import 'package:resto/core/theme/app_colors.dart';
 import 'package:resto/core/widgets/custom_text.dart';
 import 'package:resto/features/profile/presentation/views/widgets/profile_menu_item.dart';
 
 class ProfileMenuSection extends StatelessWidget {
-  const ProfileMenuSection({super.key, required this.title, required this.items});
+  const ProfileMenuSection({
+    super.key,
+    required this.title,
+    required this.items,
+  });
 
   final String title;
   final List<ProfileMenuItem> items;
@@ -19,7 +24,7 @@ class ProfileMenuSection extends StatelessWidget {
           text: title,
           size: 13.sp,
           weight: FontWeight.w600,
-          color: Colors.grey.shade500,
+          color: AppColors.lightTextMuted,
           maxLines: 1,
         ),
         Gap(8.h),
@@ -40,7 +45,11 @@ class ProfileMenuSection extends StatelessWidget {
               for (var i = 0; i < items.length; i++) ...[
                 items[i],
                 if (i != items.length - 1)
-                  Divider(height: 1, indent: 66.w, color: Colors.grey.shade100),
+                  Divider(
+                    height: 1,
+                    indent: 66.w,
+                    color: AppColors.lightBorder,
+                  ),
               ],
             ],
           ),

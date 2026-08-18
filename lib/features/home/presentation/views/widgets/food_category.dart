@@ -47,9 +47,15 @@ class FoodCategory extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color: isSelected ? Colors.white : Colors.grey.shade700,
+                  color: isSelected
+                      ? Colors.white
+                      : AppColors.lightTextSecondary,
                 ),
-                child: Text(item.name, maxLines: 1, overflow: TextOverflow.ellipsis),
+                child: Text(
+                  item.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
           );

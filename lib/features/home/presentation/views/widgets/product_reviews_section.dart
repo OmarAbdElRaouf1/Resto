@@ -5,7 +5,11 @@ import 'package:resto/core/theme/app_colors.dart';
 import 'package:resto/core/widgets/custom_text.dart';
 
 class Review {
-  const Review({required this.name, required this.rating, required this.comment});
+  const Review({
+    required this.name,
+    required this.rating,
+    required this.comment,
+  });
 
   final String name;
   final int rating;
@@ -123,7 +127,10 @@ class _AddReviewCard extends StatelessWidget {
             style: const TextStyle(fontSize: 14),
             decoration: InputDecoration(
               hintText: 'Write a review...',
-              hintStyle: TextStyle(color: Colors.grey.shade500, fontSize: 14),
+              hintStyle: const TextStyle(
+                color: AppColors.lightTextMuted,
+                fontSize: 14,
+              ),
               filled: true,
               fillColor: Colors.white,
               contentPadding: const EdgeInsets.symmetric(
@@ -202,7 +209,10 @@ class _ReviewTile extends StatelessWidget {
 
                 Text(
                   review.comment,
-                  style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: AppColors.lightTextSecondary,
+                  ),
                 ),
               ],
             ),

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 abstract class AppColors {
   // Brand Primary & Accent
-  static const Color primaryColor = Color(0xFF08431D); // Primary Deep Emerald Green
+  static const Color primaryColor = Color(
+    0xFF08431D,
+  ); // Primary Deep Emerald Green
   static const Color primaryLight = Color(0xFF1E6B37); // Lighter Emerald
   static const Color primaryDark = Color(0xFF04240F); // Darker Emerald
   static const Color secondaryColor = Color(0xFF2E7D32); // Vibrant Accent Green

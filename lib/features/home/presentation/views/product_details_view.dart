@@ -9,7 +9,7 @@ import 'package:resto/core/widgets/custom_button.dart';
 import 'package:resto/core/widgets/custom_text.dart';
 import 'package:resto/features/cart/presentation/manager/cubit/cart_cubit.dart';
 import 'package:resto/features/home/domain/entities/product_entity.dart';
-import 'package:resto/features/home/presentation/views/widgets/ingridents_tag.dart';
+import 'package:resto/features/home/presentation/views/widgets/ingredients_tag.dart';
 import 'package:resto/features/home/presentation/views/widgets/product_reviews_section.dart';
 import 'package:resto/features/home/presentation/views/widgets/rating_badge.dart';
 
@@ -29,7 +29,8 @@ class ProductDetailsView extends StatelessWidget {
               if (state is AddItemToCartSuccessState) {
                 showAnimatedSnackbar(
                   context,
-                  message: '${product.name ?? 'Item'} added to cart successfully!',
+                  message:
+                      '${product.name ?? 'Item'} added to cart successfully!',
                   type: AnimatedSnackBarType.success,
                 );
               } else if (state is AddItemToCartErrorState) {
@@ -61,10 +62,7 @@ class ProductDetailsView extends StatelessWidget {
                     : () {
                         final productId = product.id;
                         if (productId != null && productId.isNotEmpty) {
-                          context.read<CartCubit>().addItemToCart(
-                                productId,
-                                1,
-                              );
+                          context.read<CartCubit>().addItemToCart(productId, 1);
                         } else {
                           showAnimatedSnackbar(
                             context,
@@ -119,7 +117,7 @@ class ProductDetailsView extends StatelessWidget {
                     text: product.category?.name ?? '',
                     size: 13,
                     weight: FontWeight.w400,
-                    color: Colors.grey.shade600,
+                    color: AppColors.lightTextSecondary,
                   ),
 
                   Gap(16.h),
@@ -158,7 +156,10 @@ class ProductDetailsView extends StatelessWidget {
 
                   Text(
                     product.description ?? '',
-                    style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: AppColors.lightTextSecondary,
+                    ),
                   ),
 
                   if (product.ingredients?.isNotEmpty == true) ...[

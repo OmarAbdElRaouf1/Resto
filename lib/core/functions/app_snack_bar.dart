@@ -1,6 +1,7 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:gap/gap.dart';
 import 'package:resto/core/theme/app_colors.dart';
 
 void showAnimatedSnackbar(
@@ -9,10 +10,16 @@ void showAnimatedSnackbar(
   AnimatedSnackBarType type = AnimatedSnackBarType.success,
 }) {
   final (backgroundColor, iconData) = switch (type) {
-    AnimatedSnackBarType.success => (AppColors.success, Icons.check_circle_outline),
+    AnimatedSnackBarType.success => (
+      AppColors.success,
+      Icons.check_circle_outline,
+    ),
     AnimatedSnackBarType.error => (AppColors.error, Icons.error_outline),
     AnimatedSnackBarType.info => (AppColors.info, Icons.info_outline),
-    AnimatedSnackBarType.warning => (AppColors.warning, Icons.warning_amber_rounded),
+    AnimatedSnackBarType.warning => (
+      AppColors.warning,
+      Icons.warning_amber_rounded,
+    ),
   };
 
   AnimatedSnackBar.removeAll();
@@ -37,12 +44,8 @@ void showAnimatedSnackbar(
         ),
         child: Row(
           children: [
-            Icon(
-              iconData,
-              color: AppColors.white,
-              size: 22.w,
-            ),
-            SizedBox(width: 12.w),
+            Icon(iconData, color: AppColors.white, size: 22.w),
+            Gap(12.w),
             Expanded(
               child: Text(
                 message,

@@ -1,4 +1,4 @@
-import 'package:resto/core/network/api_edpoints.dart';
+import 'package:resto/core/network/api_endpoints.dart';
 import 'package:resto/core/network/api_service.dart';
 import 'package:resto/features/home/data/models/products_model.dart';
 import 'package:resto/features/home/domain/entities/product_entity.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:resto/features/home/presentation/manager/categories/categories_cubit.dart';
-import 'package:resto/features/home/presentation/views/widgets/food_catrgory.dart';
+import 'package:resto/features/home/presentation/views/widgets/food_category.dart';
 
 class CategoriesBlocBuilder extends StatelessWidget {
   const CategoriesBlocBuilder({

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:resto/core/helpers/shared_prefs.dart';
+import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:gap/gap.dart';
+import 'package:resto/core/theme/app_colors.dart';
 
 class LogoutSheet extends StatelessWidget {
   const LogoutSheet({super.key});
@@ -16,12 +18,12 @@ class LogoutSheet extends StatelessWidget {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: Colors.grey.shade300,
+                color: AppColors.lightBorder,
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
 
-            const SizedBox(height: 24),
+            const Gap(24),
 
             Container(
               width: 64,
@@ -37,27 +39,25 @@ class LogoutSheet extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 18),
+            const Gap(18),
 
             const Text(
               'Log out?',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
             ),
 
-            const SizedBox(height: 8),
+            const Gap(8),
 
-            Text(
+            const Text(
               'Are you sure you want to log out of your account?',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 14,
                 height: 1.5,
-                color: Colors.grey.shade600,
+                color: AppColors.lightTextSecondary,
               ),
             ),
-
-            const SizedBox(height: 28),
-
+            Gap(28.h),
             Row(
               children: [
                 Expanded(
@@ -67,27 +67,24 @@ class LogoutSheet extends StatelessWidget {
                     },
                     style: OutlinedButton.styleFrom(
                       minimumSize: const Size.fromHeight(52),
-                      side: BorderSide(color: Colors.grey.shade300),
+                      side: const BorderSide(color: AppColors.lightBorder),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Cancel',
                       style: TextStyle(
-                        color: Colors.grey.shade800,
+                        color: AppColors.lightTextPrimary,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
                 ),
-
-                const SizedBox(width: 12),
-
+                const Gap(12),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      SharedPrefs.removeToken();
                       Navigator.pop(context, true);
                     },
                     style: ElevatedButton.styleFrom(
