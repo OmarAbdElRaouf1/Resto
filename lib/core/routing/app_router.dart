@@ -12,20 +12,14 @@ import 'package:resto/features/cart/presentation/manager/cubit/cart_cubit.dart';
 import 'package:resto/features/home/domain/entities/product_entity.dart';
 import 'package:resto/features/home/presentation/views/home_view.dart';
 import 'package:resto/features/home/presentation/views/product_details_view.dart';
-import 'package:resto/features/profile/profile_view.dart';
+import 'package:resto/features/profile/presentation/views/profile_view.dart';
 import 'package:resto/root_view.dart';
-import 'package:resto/splash_view.dart';
 
 import 'routes.dart';
 
 class AppRouter {
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case Routes.initial:
-        return FadeSlidePageRoute(
-          settings: settings,
-          builder: (_) => const SplashView(),
-        );
       case Routes.loginView:
         return FadeSlidePageRoute(
           settings: settings,
