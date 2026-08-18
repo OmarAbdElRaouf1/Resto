@@ -43,6 +43,8 @@ class _RootViewState extends State<RootView> with TickerProviderStateMixin {
     );
 
     iconControllers[currentScreen].forward();
+
+    getIt<SessionCubit>().loadSession();
   }
 
   @override
@@ -72,8 +74,8 @@ class _RootViewState extends State<RootView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<SessionCubit>()..loadSession(),
+    return BlocProvider.value(
+      value: getIt<SessionCubit>(),
       child: PopScope(
         canPop: false,
         child: Scaffold(
