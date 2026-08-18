@@ -1,9 +1,13 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
+import 'package:resto/core/functions/app_snack_bar.dart';
 import 'package:resto/core/theme/app_colors.dart';
 import 'package:resto/core/widgets/custom_button.dart';
 import 'package:resto/core/widgets/custom_text.dart';
+import 'package:resto/features/cart/presentation/manager/cubit/cart_cubit.dart';
 import 'package:resto/features/home/domain/entities/product_entity.dart';
 import 'package:resto/features/home/presentation/views/widgets/ingridents_tag.dart';
 import 'package:resto/features/home/presentation/views/widgets/product_reviews_section.dart';
@@ -20,13 +24,55 @@ class ProductDetailsView extends StatelessWidget {
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
-          child: CustomButton(
-            text: 'Add to Cart',
-            onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('${product.name ?? 'Item'} added to cart'),
-                ),
+          child: BlocConsumer<CartCubit, CartState>(
+            listener: (context, state) {
+              if (state is AddItemToCartSuccessState) {
+                showAnimatedSnackbar(
+                  context,
+                  message: '${product.name ?? 'Item'} added to cart successfully!',
+                  type: AnimatedSnackBarType.success,
+                );
+              } else if (state is AddItemToCartErrorState) {
+                showAnimatedSnackbar(
+                  context,
+                  message: state.error,
+                  type: AnimatedSnackBarType.error,
+                );
+              }
+            },
+            builder: (context, state) {
+              final isLoading = state is AddItemToCartLoadingState;
+
+              return CustomButton(
+                text: isLoading ? 'Adding...' : 'Add to Cart',
+                widget: isLoading
+                    ? const SizedBox(
+                        width: 18,
+                        height: 18,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                    : null,
+                gap: isLoading ? 10 : 0,
+                onTap: isLoading
+                    ? null
+                    : () {
+                        final productId = product.id;
+                        if (productId != null && productId.isNotEmpty) {
+                          context.read<CartCubit>().addItemToCart(
+                                productId,
+                                1,
+                              );
+                        } else {
+                          showAnimatedSnackbar(
+                            context,
+                            message: 'Product ID is missing',
+                            type: AnimatedSnackBarType.error,
+                          );
+                        }
+                      },
               );
             },
           ),
@@ -101,7 +147,7 @@ class ProductDetailsView extends StatelessWidget {
                       ),
                     ),
 
-                  CustomText(
+                  const CustomText(
                     text: 'Description',
                     size: 16,
                     weight: FontWeight.w600,
@@ -117,7 +163,7 @@ class ProductDetailsView extends StatelessWidget {
 
                   if (product.ingredients?.isNotEmpty == true) ...[
                     Gap(20.h),
-                    CustomText(
+                    const CustomText(
                       text: 'Ingredients',
                       size: 16,
                       weight: FontWeight.w600,

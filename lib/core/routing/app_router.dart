@@ -7,7 +7,8 @@ import 'package:resto/features/auth/presentation/manager/login/login_cubit.dart'
 import 'package:resto/features/auth/presentation/manager/register/register_cubit.dart';
 import 'package:resto/features/auth/presentation/views/login_view.dart';
 import 'package:resto/features/auth/presentation/views/register_view.dart';
-import 'package:resto/features/cart/cart_view.dart';
+import 'package:resto/features/cart/presentation/cart_view.dart';
+import 'package:resto/features/cart/presentation/manager/cubit/cart_cubit.dart';
 import 'package:resto/features/home/domain/entities/product_entity.dart';
 import 'package:resto/features/home/presentation/views/home_view.dart';
 import 'package:resto/features/home/presentation/views/product_details_view.dart';
@@ -24,7 +25,7 @@ class AppRouter {
           settings: settings,
           builder: (_) => BlocProvider(
             create: (context) => getIt<LoginCubit>(),
-            child: LoginView(),
+            child: const LoginView(),
           ),
         );
       case Routes.registerView:
@@ -32,7 +33,7 @@ class AppRouter {
           settings: settings,
           builder: (_) => BlocProvider(
             create: (context) => getIt<RegisterCubit>(),
-            child: RegisterView(),
+            child: const RegisterView(),
           ),
         );
       case Routes.homeView:
@@ -46,7 +47,10 @@ class AppRouter {
         // native iOS edge-swipe-to-pop gesture works here.
         return CupertinoPageRoute(
           settings: settings,
-          builder: (_) => ProductDetailsView(product: product),
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<CartCubit>(),
+            child: ProductDetailsView(product: product),
+          ),
         );
       case Routes.cartView:
         return FadeSlidePageRoute(

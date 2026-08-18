@@ -57,7 +57,7 @@ class LoginView extends StatelessWidget {
           
                       Gap(20.h),
           
-                      DontHaveAccount(),
+                      const DontHaveAccount(),
                     ],
                   ),
                 ),

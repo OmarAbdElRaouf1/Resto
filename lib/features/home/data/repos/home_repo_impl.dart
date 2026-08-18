@@ -12,7 +12,7 @@ class HomeRepoImpl implements HomeRepo {
   Future<List<ProductEntity>> getProducts({String? categoryId}) async {
     try {
       final response = await apiService.get(
-        ApiEdpoints.products,
+        ApiEndpoints.products,
         param: categoryId != null ? {'category': categoryId} : null,
       );
       return (response as List).map((e) => ProductModel.fromJson(e)).toList();
@@ -24,7 +24,7 @@ class HomeRepoImpl implements HomeRepo {
   @override
   Future<List<CategoryEntity>> getCategories() async {
     try {
-      final response = await apiService.get(ApiEdpoints.categories);
+      final response = await apiService.get(ApiEndpoints.categories);
 
       final categories = (response as List)
           .map((e) => CategoryModel.fromJson(e))

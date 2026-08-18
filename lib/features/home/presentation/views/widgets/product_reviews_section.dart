@@ -64,7 +64,7 @@ class _ProductReviewsSectionState extends State<ProductReviewsSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomText(
+        const CustomText(
           text: 'Reviews',
           size: 16,
           weight: FontWeight.w600,

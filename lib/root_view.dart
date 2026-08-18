@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:glass_bottom_navigation/nav_style.dart';
 import 'package:resto/core/theme/app_colors.dart';
-import 'package:resto/features/cart/cart_view.dart';
+import 'package:resto/features/cart/presentation/cart_view.dart';
 import 'package:resto/features/home/presentation/views/home_view.dart';
 import 'package:resto/features/profile/presentation/views/profile_view.dart';
 
@@ -74,10 +74,6 @@ class _RootViewState extends State<RootView> with TickerProviderStateMixin {
     );
   }
 
-  // =========================
-  // iOS
-  // =========================
-
   Widget _buildIOSNavigation() {
     return GlassBottomBar(
       items: [
@@ -111,10 +107,6 @@ class _RootViewState extends State<RootView> with TickerProviderStateMixin {
       ),
     );
   }
-
-  // =========================
-  // Android
-  // =========================
 
   Widget _buildAndroidNavigation() {
     return Container(
