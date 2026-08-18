@@ -5,6 +5,9 @@ import 'package:resto/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:resto/features/auth/domain/repositories/auth_repo.dart';
 import 'package:resto/features/auth/presentation/manager/login/login_cubit.dart';
 import 'package:resto/features/auth/presentation/manager/register/register_cubit.dart';
+import 'package:resto/features/cart/data/repos/cart_repo_impl.dart';
+import 'package:resto/features/cart/domain/repositories/cart_repo.dart';
+import 'package:resto/features/cart/presentation/manager/cubit/cart_cubit.dart';
 import 'package:resto/features/home/data/repos/home_repo_impl.dart';
 import 'package:resto/features/home/domain/repositories/home_repo.dart';
 import 'package:resto/features/home/presentation/manager/categories/categories_cubit.dart';
@@ -23,4 +26,11 @@ Future<void> setupServiceLocator() async {
   getIt.registerLazySingleton<HomeRepo>(() => HomeRepoImpl(getIt()));
   getIt.registerFactory<ProductsCubit>(() => ProductsCubit(getIt()));
   getIt.registerFactory<CategoriesCubit>(() => CategoriesCubit(getIt()));
+
+  getIt.registerLazySingleton<CartRepo>(
+    () => CartRepoImpl(getIt<ApiService>()),
+  );
+  getIt.registerFactory<CartCubit>(
+    () => CartCubit(cartRepo: getIt<CartRepo>()),
+  );
 }

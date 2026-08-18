@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:glass_bottom_navigation/nav_style.dart';
 import 'package:resto/core/theme/app_colors.dart';
-import 'package:resto/features/cart/cart_view.dart';
+import 'package:resto/features/cart/presentation/cart_view.dart';
 import 'package:resto/features/home/presentation/views/home_view.dart';
 import 'package:resto/features/profile/profile_view.dart';
 
@@ -68,7 +67,7 @@ class _RootViewState extends State<RootView> with TickerProviderStateMixin {
         body: IndexedStack(index: currentScreen, children: screens),
 
         bottomNavigationBar: GlassBottomBar(
-          items: [
+          items: const [
             GlassBarItem(
               icon: Icons.home_rounded,
 
@@ -94,9 +93,9 @@ class _RootViewState extends State<RootView> with TickerProviderStateMixin {
           currentIndex: currentScreen,
           onTap: _onTabTapped,
 
-          style: GlassBottomNavStyle(
+          style: const GlassBottomNavStyle(
             widthFactor: 1.0,
-            height: 80.h,
+            height: 80,
             accent: AppColors.primaryColor,
           ),
         ),

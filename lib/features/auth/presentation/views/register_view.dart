@@ -59,7 +59,7 @@ class RegisterView extends StatelessWidget {
 
                       Gap(20.h),
 
-                      HaveAccount(),
+                      const HaveAccount(),
                     ],
                   ),
                 ),

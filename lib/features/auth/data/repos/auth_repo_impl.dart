@@ -14,7 +14,7 @@ class AuthRepoImpl implements AuthRepo {
     required String email,
     required String password,
   }) async {
-    final response = await apiService.post(ApiEdpoints.login, {
+    final response = await apiService.post(ApiEndpoints.login, {
       'email': email,
       'password': password,
     });
@@ -32,7 +32,7 @@ class AuthRepoImpl implements AuthRepo {
     required String email,
     required String password,
   }) async {
-    final response = await apiService.post(ApiEdpoints.register, {
+    final response = await apiService.post(ApiEndpoints.register, {
       'name': name,
       'email': email,
       'password': password,
