@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resto/core/helpers/extensions.dart';
-import 'package:resto/core/helpers/shared_prefs.dart';
 import 'package:resto/core/routing/routes.dart';
 import 'package:resto/core/widgets/custom_button.dart';
+import 'package:resto/features/auth/presentation/manager/session/session_cubit.dart';
 import 'package:resto/features/profile/presentation/views/widgets/logout_sheet.dart';
 
 class LogoutButton extends StatelessWidget {
@@ -23,7 +24,7 @@ class LogoutButton extends StatelessWidget {
 
     if (confirmed != true || !context.mounted) return;
 
-    await SharedPrefs.removeToken();
+    await context.read<SessionCubit>().logout();
 
     if (context.mounted) {
       context.pushReplacementNamed(Routes.loginView);

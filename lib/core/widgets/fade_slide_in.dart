@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Fades and slides [child] into place once, after an optional [delay].
-/// Used for screen-entrance and staggered list-item animations.
 class FadeSlideIn extends StatefulWidget {
   const FadeSlideIn({
     super.key,

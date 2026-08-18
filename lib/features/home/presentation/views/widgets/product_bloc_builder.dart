@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import 'package:gap/gap.dart';
 import 'package:resto/core/helpers/extensions.dart';
 import 'package:resto/core/routing/routes.dart';
-import 'package:resto/core/widgets/custom_text.dart';
+import 'package:resto/core/widgets/error_retry_view.dart';
 import 'package:resto/core/widgets/fade_slide_in.dart';
 import 'package:resto/features/home/presentation/manager/categories/categories_cubit.dart';
 import 'package:resto/features/home/presentation/manager/products/products_cubit.dart';
@@ -23,32 +22,15 @@ class ProductBlocBuilder extends StatelessWidget {
         if (state is ProductsFailure) {
           return SliverFillRemaining(
             hasScrollBody: false,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomText(
-                    text: state.errorMessage ?? 'Something went wrong',
-                    size: 14,
-                    weight: FontWeight.w500,
-                    color: Colors.grey.shade700,
-                  ),
-                  Gap(12.h),
-                  TextButton(
-                    onPressed: () {
-                      context.read<ProductsCubit>().getProducts(
-                        categoryId: selectedCategoryId,
-                      );
-                      context.read<CategoriesCubit>().getCategories();
-                    },
-                    child: const CustomText(
-                      text: 'Retry',
-                      size: 14,
-                      weight: FontWeight.w600,
-                    ),
-                  ),
-                ],
+            child: Center(
+              child: ErrorRetryView(
+                message: state.errorMessage ?? 'Something went wrong',
+                onRetry: () {
+                  context.read<ProductsCubit>().getProducts(
+                    categoryId: selectedCategoryId,
+                  );
+                  context.read<CategoriesCubit>().getCategories();
+                },
               ),
             ),
           );

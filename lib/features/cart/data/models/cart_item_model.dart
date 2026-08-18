@@ -2,12 +2,7 @@ import 'package:resto/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:resto/features/home/data/models/products_model.dart';
 
 class CartItemModel extends CartItemEntity {
-  CartItemModel({
-    super.productId,
-    super.product,
-    super.quantity,
-    super.price,
-  });
+  CartItemModel({super.productId, super.product, super.quantity, super.price});
 
   factory CartItemModel.fromJson(Map<String, dynamic> json) {
     final productJson = json['product'];
@@ -31,9 +26,6 @@ class CartItemModel extends CartItemEntity {
       );
     }
 
-    return CartItemModel(
-      quantity: json['quantity'],
-      price: json['price'],
-    );
+    return CartItemModel(quantity: json['quantity'], price: json['price']);
   }
 }

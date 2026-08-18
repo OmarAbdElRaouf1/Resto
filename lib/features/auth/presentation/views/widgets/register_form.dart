@@ -12,7 +12,8 @@ class RegisterForm extends StatefulWidget {
   });
 
   final bool isLoading;
-  final void Function(String name, String email, String password) onSubmit;
+  final void Function(String name, String phone, String email, String password)
+  onSubmit;
 
   @override
   State<RegisterForm> createState() => _RegisterFormState();
@@ -21,6 +22,7 @@ class RegisterForm extends StatefulWidget {
 class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -28,6 +30,7 @@ class _RegisterFormState extends State<RegisterForm> {
   @override
   void dispose() {
     _nameController.dispose();
+    _phoneController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
@@ -38,6 +41,7 @@ class _RegisterFormState extends State<RegisterForm> {
     if (_formKey.currentState!.validate()) {
       widget.onSubmit(
         _nameController.text.trim(),
+        _phoneController.text.trim(),
         _emailController.text.trim(),
         _passwordController.text,
       );
@@ -62,6 +66,13 @@ class _RegisterFormState extends State<RegisterForm> {
             hint: 'Email',
             isPassword: false,
             controller: _emailController,
+          ),
+
+          Gap(20.h),
+          CustomTextfield(
+            hint: 'Phone',
+            isPassword: false,
+            controller: _phoneController,
           ),
 
           Gap(20.h),

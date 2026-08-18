@@ -49,9 +49,10 @@ class RegisterView extends StatelessWidget {
 
                       RegisterForm(
                         isLoading: isLoading,
-                        onSubmit: (name, email, password) =>
+                        onSubmit: (name, phone, email, password) =>
                             context.read<RegisterCubit>().register(
                               name: name,
+                              phone: phone,
                               email: email,
                               password: password,
                             ),

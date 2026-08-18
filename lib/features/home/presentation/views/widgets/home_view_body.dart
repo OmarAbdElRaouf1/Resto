@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:gap/gap.dart';
-import 'package:resto/core/helpers/shared_prefs.dart';
 import 'package:resto/core/theme/app_colors.dart';
+import 'package:resto/features/auth/presentation/manager/session/session_cubit.dart';
 import 'package:resto/features/home/presentation/manager/products/products_cubit.dart';
 import 'package:resto/features/home/presentation/views/widgets/categories_bloc_builder.dart';
 import 'package:resto/features/home/presentation/views/widgets/home_app_bar.dart';
-import 'package:resto/features/home/presentation/views/widgets/product_bloc_bulder.dart';
+import 'package:resto/features/home/presentation/views/widgets/product_bloc_builder.dart';
 
 class HomeViewBody extends StatefulWidget {
   const HomeViewBody({super.key});
@@ -19,26 +19,12 @@ class HomeViewBody extends StatefulWidget {
 class _HomeViewBodyState extends State<HomeViewBody> {
   String? selectedCategoryId;
 
-  String userName = 'Guest';
-
   final TextEditingController _searchController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    _loadUserName();
-  }
 
   @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
-  }
-
-  Future<void> _loadUserName() async {
-    final savedName = await SharedPrefs.getUserName();
-    if (!mounted || savedName == null) return;
-    setState(() => userName = savedName);
   }
 
   void _selectCategory(String? categoryId) {
@@ -59,12 +45,20 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           clipBehavior: Clip.none,
           slivers: [
             // Header
-            HomeAppBar(
-              userName: userName,
-              userImage:
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvts5aHBstDkR8PigS4RmZkbZy78zpZoSuOw&s',
-              searchController: _searchController,
-              onSearchChanged: (_) {},
+            BlocBuilder<SessionCubit, SessionState>(
+              builder: (context, state) {
+                final userName = state is SessionLoaded
+                    ? state.userName
+                    : 'Guest';
+
+                return HomeAppBar(
+                  userName: userName,
+                  userImage:
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvts5aHBstDkR8PigS4RmZkbZy78zpZoSuOw&s',
+                  searchController: _searchController,
+                  onSearchChanged: (_) {},
+                );
+              },
             ),
 
             SliverToBoxAdapter(child: Gap(3.h)),

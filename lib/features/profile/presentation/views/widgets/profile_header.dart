@@ -9,10 +9,12 @@ class ProfileHeader extends StatelessWidget {
     super.key,
     required this.userName,
     required this.userImage,
+    this.phone,
   });
 
   final String userName;
   final String userImage;
+  final String? phone;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +60,16 @@ class ProfileHeader extends StatelessWidget {
               color: Colors.white,
               maxLines: 1,
             ),
+            if (phone != null && phone!.isNotEmpty) ...[
+              Gap(4.h),
+              CustomText(
+                text: phone!,
+                size: 14.sp,
+                weight: FontWeight.w400,
+                color: Colors.white.withValues(alpha: 0.8),
+                maxLines: 1,
+              ),
+            ],
           ],
         ),
       ),

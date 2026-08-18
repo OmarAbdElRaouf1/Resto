@@ -4,7 +4,10 @@ abstract class AuthRepo {
   Future<UserEntity> login({required String email, required String password});
   Future<UserEntity> register({
     required String name,
+    required String phone,
     required String email,
     required String password,
   });
+  Future<UserEntity> getMe();
+  Future<void> logout();
 }

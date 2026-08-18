@@ -4,6 +4,7 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:resto/core/di/di.dart';
 import 'package:resto/core/helpers/shared_prefs.dart';
 import 'package:resto/core/routing/app_router.dart';
+import 'package:resto/core/routing/navigator_key.dart';
 import 'package:resto/core/routing/routes.dart';
 import 'package:resto/core/theme/app_theme.dart';
 
@@ -35,6 +36,7 @@ class Resto extends StatelessWidget {
       ensureScreenSize: true,
       splitScreenMode: true,
       child: MaterialApp(
+        navigatorKey: navigatorKey,
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
         themeMode: ThemeMode.system,

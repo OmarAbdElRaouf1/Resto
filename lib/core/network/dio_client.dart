@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:resto/core/helpers/shared_prefs.dart';
+import 'package:resto/core/routing/navigator_key.dart';
+import 'package:resto/core/routing/routes.dart';
 
 class DioClient {
   final Dio _dio = Dio(
@@ -22,6 +24,17 @@ class DioClient {
           }
 
           return handler.next(options);
+        },
+        onError: (error, handler) async {
+          if (error.response?.statusCode == 401) {
+            await SharedPrefs.removeToken();
+            navigatorKey.currentState?.pushNamedAndRemoveUntil(
+              Routes.loginView,
+              (route) => false,
+            );
+          }
+
+          return handler.next(error);
         },
       ),
     );
