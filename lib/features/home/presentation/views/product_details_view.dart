@@ -84,10 +84,7 @@ class ProductDetailsView extends StatelessWidget {
             backgroundColor: AppColors.primaryColor,
             iconTheme: const IconThemeData(color: Colors.white),
             flexibleSpace: FlexibleSpaceBar(
-              background: Hero(
-                tag: product.id ?? product.image ?? '',
-                child: Image.network(product.image ?? '', fit: BoxFit.cover),
-              ),
+              background: Image.network(product.image ?? '', fit: BoxFit.cover),
             ),
           ),
           SliverToBoxAdapter(

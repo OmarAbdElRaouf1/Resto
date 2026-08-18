@@ -4,7 +4,6 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:resto/core/helpers/extensions.dart';
 import 'package:resto/core/routing/routes.dart';
 import 'package:resto/core/widgets/error_retry_view.dart';
-import 'package:resto/core/widgets/fade_slide_in.dart';
 import 'package:resto/features/home/presentation/manager/categories/categories_cubit.dart';
 import 'package:resto/features/home/presentation/manager/products/products_cubit.dart';
 import 'package:resto/features/home/presentation/views/widgets/product_item.dart';
@@ -58,18 +57,15 @@ class ProductBlocBuilder extends StatelessWidget {
                 return const ProductSkeleton();
               }
               final product = products[index];
-              return FadeSlideIn(
-                delay: Duration(milliseconds: 40 * (index % 10)),
-                child: ProductItem(
-                  image: product.image ?? '',
-                  text: product.name ?? '',
-                  desc: product.description ?? '',
-                  rate: (product.rating ?? 0).toString(),
-                  heroTag: product.id ?? product.image ?? '',
-                  onTap: () => context.pushNamed(
-                    Routes.productDetailsView,
-                    arguments: product,
-                  ),
+              return ProductItem(
+                image: product.image ?? '',
+                text: product.name ?? '',
+                desc: product.description ?? '',
+                rate: (product.rating ?? 0).toString(),
+                entranceDelay: Duration(milliseconds: 40 * (index % 10)),
+                onTap: () => context.pushNamed(
+                  Routes.productDetailsView,
+                  arguments: product,
                 ),
               );
             }, childCount: itemCount),
