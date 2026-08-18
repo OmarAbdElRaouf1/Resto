@@ -76,7 +76,7 @@ class _RootViewState extends State<RootView> with TickerProviderStateMixin {
 
   Widget _buildIOSNavigation() {
     return GlassBottomBar(
-      items: [
+      items: const [
         GlassBarItem(
           icon: Icons.home_rounded,
           label: 'Home',

@@ -49,7 +49,7 @@ class HomeAppBar extends StatelessWidget {
       ),
       child: Container(
         padding: EdgeInsets.only(top: 50.h, left: 20.w, right: 20.w),
-        decoration: BoxDecoration(color: AppColors.primaryColor),
+        decoration: const BoxDecoration(color: AppColors.primaryColor),
         child: Column(
           children: [
             UserHeader(userName: userName, userImage: userImage),

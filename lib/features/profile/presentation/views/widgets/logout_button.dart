@@ -13,11 +13,11 @@ class LogoutButton extends StatelessWidget {
       context: context,
       backgroundColor: Colors.white,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
       builder: (context) {
-        return LogoutSheet();
+        return const LogoutSheet();
       },
     );
 
