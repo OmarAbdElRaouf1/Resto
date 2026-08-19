@@ -21,49 +21,30 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final topPadding = MediaQuery.of(context).padding.top;
-    final toolbarHeight = topPadding + 140.h;
-
-    return SliverAppBar(
-      surfaceTintColor: Colors.transparent,
-      backgroundColor: Colors.transparent,
-      shadowColor: Colors.transparent,
-      elevation: 0,
-      scrolledUnderElevation: 0,
-      pinned: true,
-      floating: false,
-      toolbarHeight: toolbarHeight,
-      automaticallyImplyLeading: false,
-      clipBehavior: Clip.antiAlias,
-      flexibleSpace: _buildFlexibleSpace(context),
-    );
-  }
-
-  Widget _buildFlexibleSpace(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: BoxDecoration(
-        color: AppColors.primaryColor,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(32.r),
-          bottomRight: Radius.circular(32.r),
+    return SliverToBoxAdapter(
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.primaryColor,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(32.r),
+            bottomRight: Radius.circular(32.r),
+          ),
         ),
-      ),
-      child: SafeArea(
-        bottom: false,
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(20.w, 10.h, 20.w, 14.h),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              UserHeader(userName: userName, userImage: userImage),
-              Gap(14.h),
-              SearchField(
-                controller: searchController,
-                onChanged: onSearchChanged,
-              ),
-            ],
+        child: SafeArea(
+          bottom: false,
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 18.h),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                UserHeader(userName: userName, userImage: userImage),
+                Gap(16.h),
+                SearchField(
+                  controller: searchController,
+                  onChanged: onSearchChanged,
+                ),
+              ],
+            ),
           ),
         ),
       ),
