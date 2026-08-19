@@ -1,0 +1,86 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:gap/gap.dart';
+import 'package:resto/core/functions/app_snack_bar.dart';
+import 'package:resto/core/theme/app_colors.dart';
+
+class CheckOutBarWidget extends StatelessWidget {
+  const CheckOutBarWidget({
+    super.key,
+    required this.context,
+    required this.itemCount,
+    required this.totalPrice,
+  });
+
+  final BuildContext context;
+  final int itemCount;
+  final num totalPrice;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 100.h),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24.r),
+          topRight: Radius.circular(24.r),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 16,
+            offset: const Offset(0, -4),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Total ($itemCount items)',
+                style: TextStyle(fontSize: 12.sp, color: Colors.grey.shade600),
+              ),
+              Gap(4.h),
+              Text(
+                '$totalPrice EGP',
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primaryColor,
+                ),
+              ),
+            ],
+          ),
+          ElevatedButton(
+            onPressed: () {
+              showAnimatedSnackbar(
+                context,
+                message: 'Checkout completed successfully!',
+                type: AnimatedSnackBarType.success,
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primaryColor,
+              foregroundColor: Colors.white,
+              padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 14.h),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.r),
+              ),
+              elevation: 0,
+            ),
+            child: Text(
+              'Checkout',
+              style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
