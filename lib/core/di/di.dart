@@ -35,7 +35,7 @@ Future<void> setupServiceLocator() async {
   getIt.registerLazySingleton<CartRepo>(
     () => CartRepoImpl(getIt<ApiService>()),
   );
-  getIt.registerFactory<CartCubit>(
+  getIt.registerLazySingleton<CartCubit>(
     () => CartCubit(cartRepo: getIt<CartRepo>()),
   );
 

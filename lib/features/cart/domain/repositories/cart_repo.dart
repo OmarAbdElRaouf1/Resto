@@ -7,4 +7,13 @@ abstract class CartRepo {
     required String productId,
     required int quantity,
   });
+
+  Future<CartEntity> updateCartItem({
+    required String cartItemId,
+    required int quantity,
+  });
+
+  Future<CartEntity> removeItemFromCart({
+    required String cartItemId,
+  });
 }

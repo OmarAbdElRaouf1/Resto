@@ -31,7 +31,7 @@ class HomeAppBar extends StatelessWidget {
       pinned: true,
       floating: false,
 
-      toolbarHeight: 170.h,
+      toolbarHeight: 200.h,
 
       automaticallyImplyLeading: false,
 
@@ -48,13 +48,19 @@ class HomeAppBar extends StatelessWidget {
         bottomRight: Radius.circular(32.r),
       ),
       child: Container(
-        padding: EdgeInsets.only(top: 50.h, left: 20.w, right: 20.w),
+        padding: EdgeInsets.only(
+          top: 50.h,
+          left: 20.w,
+          right: 20.w,
+          bottom: 16.h,
+        ),
         decoration: const BoxDecoration(color: AppColors.primaryColor),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             UserHeader(userName: userName, userImage: userImage),
 
-            Gap(33.h),
+            Gap(20.h),
 
             SearchField(
               controller: searchController,
