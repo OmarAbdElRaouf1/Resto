@@ -25,7 +25,7 @@ class CategoriesBlocBuilder extends StatelessWidget {
 
         return SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.only(top: 20.h, left: 15.w, right: 15.w),
+            padding: EdgeInsets.only(top: 10.h, left: 15.w, right: 15.w),
             child: FoodCategory(
               categories: categories,
               selectedId: selectedCategoryId,

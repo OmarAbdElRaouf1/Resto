@@ -21,52 +21,50 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final topPadding = MediaQuery.of(context).padding.top;
+    final toolbarHeight = topPadding + 140.h;
+
     return SliverAppBar(
       surfaceTintColor: Colors.transparent,
       backgroundColor: Colors.transparent,
       shadowColor: Colors.transparent,
       elevation: 0,
       scrolledUnderElevation: 0,
-
       pinned: true,
       floating: false,
-
-      toolbarHeight: 200.h,
-
+      toolbarHeight: toolbarHeight,
       automaticallyImplyLeading: false,
-
       clipBehavior: Clip.antiAlias,
-
-      flexibleSpace: _buildFlexibleSpace(),
+      flexibleSpace: _buildFlexibleSpace(context),
     );
   }
 
-  Widget _buildFlexibleSpace() {
-    return ClipRRect(
-      borderRadius: BorderRadius.only(
-        bottomLeft: Radius.circular(32.r),
-        bottomRight: Radius.circular(32.r),
-      ),
-      child: Container(
-        padding: EdgeInsets.only(
-          top: 50.h,
-          left: 20.w,
-          right: 20.w,
-          bottom: 16.h,
+  Widget _buildFlexibleSpace(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      decoration: BoxDecoration(
+        color: AppColors.primaryColor,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(32.r),
+          bottomRight: Radius.circular(32.r),
         ),
-        decoration: const BoxDecoration(color: AppColors.primaryColor),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            UserHeader(userName: userName, userImage: userImage),
-
-            Gap(20.h),
-
-            SearchField(
-              controller: searchController,
-              onChanged: onSearchChanged,
-            ),
-          ],
+      ),
+      child: SafeArea(
+        bottom: false,
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(20.w, 10.h, 20.w, 14.h),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              UserHeader(userName: userName, userImage: userImage),
+              Gap(14.h),
+              SearchField(
+                controller: searchController,
+                onChanged: onSearchChanged,
+              ),
+            ],
+          ),
         ),
       ),
     );

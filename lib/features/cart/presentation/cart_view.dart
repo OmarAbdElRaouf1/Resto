@@ -9,7 +9,6 @@ import 'package:resto/core/theme/app_colors.dart';
 import 'package:resto/features/cart/domain/entities/cart_entity.dart';
 import 'package:resto/features/cart/presentation/manager/cubit/cart_cubit.dart';
 import 'package:resto/features/cart/presentation/widgets/cart_item_widget.dart';
-import 'package:resto/features/cart/presentation/widgets/cart_skeleton.dart';
 import 'package:resto/features/cart/presentation/widgets/check_out_bar_widget.dart';
 import 'package:resto/features/cart/presentation/widgets/empty_cart_message.dart';
 import 'package:resto/features/cart/presentation/widgets/error_cart_widget.dart';
@@ -95,8 +94,13 @@ class _CartViewBodyState extends State<CartViewBody> {
           }
         },
         builder: (context, state) {
-          if (state is GetCartLoadingState && _currentCart == null) {
-            return const CartSkeleton();
+          if ((state is GetCartLoadingState || state is CartInitial) &&
+              _currentCart == null) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: AppColors.primaryColor,
+              ),
+            );
           }
 
           if (state is GetCartErrorState && _currentCart == null) {
@@ -120,7 +124,15 @@ class _CartViewBodyState extends State<CartViewBody> {
 
           final items = cart?.items ?? [];
 
-          if (items.isEmpty && state is! GetCartLoadingState) {
+          if (state is GetCartLoadingState && items.isEmpty) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: AppColors.primaryColor,
+              ),
+            );
+          }
+
+          if (items.isEmpty) {
             return const EmptyCartMessage();
           }
 
