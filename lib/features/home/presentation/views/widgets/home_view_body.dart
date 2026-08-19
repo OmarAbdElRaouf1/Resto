@@ -47,7 +47,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
               builder: (context, state) {
                 final userName = state is SessionLoaded
                     ? state.userName
-                    : 'Guest';
+                    : 'Loading...';
 
                 return HomeAppBar(
                   userName: userName,
