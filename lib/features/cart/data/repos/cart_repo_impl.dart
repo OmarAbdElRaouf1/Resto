@@ -29,4 +29,30 @@ class CartRepoImpl implements CartRepo {
 
     return CartModel.fromJson(response);
   }
+
+  @override
+  Future<CartEntity> updateCartItem({
+    required String cartItemId,
+    required int quantity,
+  }) async {
+    final response = await apiService.put(
+      '${ApiEndpoints.updateCartItem}/$cartItemId',
+      {
+        'quantity': quantity,
+      },
+    );
+
+    return CartModel.fromJson(response);
+  }
+
+  @override
+  Future<CartEntity> removeItemFromCart({
+    required String cartItemId,
+  }) async {
+    final response = await apiService.delete(
+      '${ApiEndpoints.removeItemFromCart}/$cartItemId'
+    );
+
+    return CartModel.fromJson(response);
+  }
 }

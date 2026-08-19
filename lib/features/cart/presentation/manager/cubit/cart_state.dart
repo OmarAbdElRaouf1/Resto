@@ -28,3 +28,27 @@ final class AddItemToCartErrorState extends CartState {
   final String error;
   AddItemToCartErrorState(this.error);
 }
+
+final class UpdateCartItemLoadingState extends CartState {}
+
+final class UpdateCartItemSuccessState extends CartState {
+  final CartEntity cart;
+  UpdateCartItemSuccessState(this.cart);
+}
+
+final class UpdateCartItemErrorState extends CartState {
+  final String error;
+  UpdateCartItemErrorState(this.error);
+}
+
+final class RemoveItemFromCartLoadingState extends CartState {}
+
+final class RemoveItemFromCartSuccessState extends CartState {
+  final CartEntity cart;
+  RemoveItemFromCartSuccessState(this.cart);
+}
+
+final class RemoveItemFromCartErrorState extends CartState {
+  final String error;
+  RemoveItemFromCartErrorState(this.error);
+}

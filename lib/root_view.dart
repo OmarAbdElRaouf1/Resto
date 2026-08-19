@@ -8,11 +8,13 @@ import 'package:resto/core/di/di.dart';
 import 'package:resto/core/theme/app_colors.dart';
 import 'package:resto/features/auth/presentation/manager/session/session_cubit.dart';
 import 'package:resto/features/cart/presentation/cart_view.dart';
+import 'package:resto/features/cart/presentation/manager/cubit/cart_cubit.dart';
 import 'package:resto/features/home/presentation/views/home_view.dart';
 import 'package:resto/features/order_history/presentation/manager/cubit/order_history_cubit.dart';
 import 'package:resto/features/order_history/presentation/views/order_history_view.dart';
 import 'package:resto/features/profile/presentation/views/profile_view.dart';
 
+const int _cartTabIndex = 1;
 const int _historyTabIndex = 2;
 
 class RootView extends StatefulWidget {
@@ -66,6 +68,10 @@ class _RootViewState extends State<RootView> with TickerProviderStateMixin {
     });
 
     iconControllers[index].forward();
+
+    if (index == _cartTabIndex) {
+      getIt<CartCubit>().getMyCart();
+    }
 
     if (index == _historyTabIndex) {
       getIt<OrderHistoryCubit>().getMyOrders();

@@ -44,8 +44,8 @@ class ApiService {
 
   /// delete
   Future<dynamic> delete(
-    String endPoint,
-    dynamic body, {
+    String endPoint, {
+    dynamic body,
     dynamic params,
   }) async {
     try {
