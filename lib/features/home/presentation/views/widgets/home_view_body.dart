@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import 'package:gap/gap.dart';
 import 'package:resto/core/theme/app_colors.dart';
 import 'package:resto/features/auth/presentation/manager/session/session_cubit.dart';
 import 'package:resto/features/home/presentation/manager/products/products_cubit.dart';
@@ -60,8 +58,6 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                 );
               },
             ),
-
-            SliverToBoxAdapter(child: Gap(3.h)),
 
             // Categories
             CategoriesBlocBuilder(
