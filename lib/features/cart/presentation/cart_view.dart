@@ -10,6 +10,9 @@ import 'package:resto/features/cart/domain/entities/cart_entity.dart';
 import 'package:resto/features/cart/presentation/manager/cubit/cart_cubit.dart';
 import 'package:resto/features/cart/presentation/widgets/cart_item_widget.dart';
 import 'package:resto/features/cart/presentation/widgets/cart_skeleton.dart';
+import 'package:resto/features/cart/presentation/widgets/check_out_bar_widget.dart';
+import 'package:resto/features/cart/presentation/widgets/empty_cart_message.dart';
+import 'package:resto/features/cart/presentation/widgets/error_cart_widget.dart';
 
 class CartView extends StatelessWidget {
   const CartView({super.key});
@@ -97,58 +100,7 @@ class _CartViewBodyState extends State<CartViewBody> {
           }
 
           if (state is GetCartErrorState && _currentCart == null) {
-            return Center(
-              child: Padding(
-                padding: EdgeInsets.all(24.r),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.error_outline_rounded,
-                      size: 64.r,
-                      color: Colors.red.shade400,
-                    ),
-                    Gap(16.h),
-                    Text(
-                      'Failed to load cart',
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    Gap(8.h),
-                    Text(
-                      state.error,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 13.sp,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                    Gap(24.h),
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        context.read<CartCubit>().getMyCart();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryColor,
-                        foregroundColor: Colors.white,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 24.w,
-                          vertical: 12.h,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.r),
-                        ),
-                      ),
-                      icon: const Icon(Icons.refresh_rounded),
-                      label: const Text('Retry'),
-                    ),
-                  ],
-                ),
-              ),
-            );
+            return ErrorCartWidget(errorMessage: state.error);
           }
 
           CartEntity? cart = _currentCart;
@@ -169,72 +121,7 @@ class _CartViewBodyState extends State<CartViewBody> {
           final items = cart?.items ?? [];
 
           if (items.isEmpty && state is! GetCartLoadingState) {
-            return Center(
-              child: Padding(
-                padding: EdgeInsets.all(32.r),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(24.r),
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryColor.withValues(alpha: 0.1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.shopping_cart_outlined,
-                        size: 72.r,
-                        color: AppColors.primaryColor,
-                      ),
-                    ),
-                    Gap(20.h),
-                    Text(
-                      'Your Cart is Empty',
-                      style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    Gap(8.h),
-                    Text(
-                      'Explore our delicious menu and add food to your cart!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 13.sp,
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                    Gap(24.h),
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        context.read<CartCubit>().getMyCart();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryColor,
-                        foregroundColor: Colors.white,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 24.w,
-                          vertical: 12.h,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.r),
-                        ),
-                        elevation: 0,
-                      ),
-                      icon: const Icon(Icons.refresh_rounded, size: 18),
-                      label: Text(
-                        'Refresh Cart',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
+            return const EmptyCartMessage();
           }
 
           // Calculate total price
@@ -310,7 +197,11 @@ class _CartViewBodyState extends State<CartViewBody> {
                   ),
 
                   // Bottom Total and Checkout Bar
-                  _buildCheckoutBar(context, items.length, totalPrice),
+                  CheckOutBarWidget(
+                    context: context,
+                    itemCount: items.length,
+                    totalPrice: totalPrice,
+                  ),
                 ],
               ),
 
@@ -328,76 +219,6 @@ class _CartViewBodyState extends State<CartViewBody> {
             ],
           );
         },
-      ),
-    );
-  }
-
-  Widget _buildCheckoutBar(
-    BuildContext context,
-    int itemCount,
-    num totalPrice,
-  ) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 100.h),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(24.r),
-          topRight: Radius.circular(24.r),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            blurRadius: 16,
-            offset: const Offset(0, -4),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Total ($itemCount items)',
-                style: TextStyle(fontSize: 12.sp, color: Colors.grey.shade600),
-              ),
-              Gap(4.h),
-              Text(
-                '$totalPrice EGP',
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primaryColor,
-                ),
-              ),
-            ],
-          ),
-          ElevatedButton(
-            onPressed: () {
-              showAnimatedSnackbar(
-                context,
-                message: 'Checkout completed successfully!',
-                type: AnimatedSnackBarType.success,
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primaryColor,
-              foregroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 14.h),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.r),
-              ),
-              elevation: 0,
-            ),
-            child: Text(
-              'Checkout',
-              style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
       ),
     );
   }
