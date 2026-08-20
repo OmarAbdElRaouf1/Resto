@@ -52,6 +52,7 @@ class _CartViewBodyState extends State<CartViewBody> {
         Colors.white,
       ),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: AppColors.primaryColor,
         elevation: 0,
         centerTitle: true,
@@ -63,6 +64,18 @@ class _CartViewBodyState extends State<CartViewBody> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<CartCubit>().clearCart();
+            },
+            icon: const Icon(
+              Icons.delete_outline_rounded,
+              color: Colors.white,
+            ),
+            tooltip: 'Clear Cart',
+          ),
+        ],
       ),
       body: BlocConsumer<CartCubit, CartState>(
         listener: (context, state) {
@@ -73,6 +86,8 @@ class _CartViewBodyState extends State<CartViewBody> {
           } else if (state is RemoveItemFromCartSuccessState) {
             _currentCart = state.cart;
           } else if (state is AddItemToCartSuccessState) {
+            _currentCart = state.cart;
+          } else if (state is ClearCartSuccessState) {
             _currentCart = state.cart;
           } else if (state is UpdateCartItemErrorState) {
             showAnimatedSnackbar(
@@ -87,6 +102,12 @@ class _CartViewBodyState extends State<CartViewBody> {
               type: AnimatedSnackBarType.error,
             );
           } else if (state is AddItemToCartErrorState) {
+            showAnimatedSnackbar(
+              context,
+              message: state.error,
+              type: AnimatedSnackBarType.error,
+            );
+          } else if (state is ClearCartErrorState) {
             showAnimatedSnackbar(
               context,
               message: state.error,
@@ -117,6 +138,9 @@ class _CartViewBodyState extends State<CartViewBody> {
           } else if (state is AddItemToCartSuccessState) {
             cart = state.cart;
             _currentCart = state.cart;
+          } else if (state is ClearCartSuccessState) {
+            cart = state.cart;
+            _currentCart = state.cart;
           }
 
           final items = cart?.items ?? [];
@@ -140,7 +164,8 @@ class _CartViewBodyState extends State<CartViewBody> {
 
           final isActionLoading =
               state is UpdateCartItemLoadingState ||
-              state is RemoveItemFromCartLoadingState;
+              state is RemoveItemFromCartLoadingState ||
+              state is ClearCartLoadingState;
 
           return Stack(
             children: [

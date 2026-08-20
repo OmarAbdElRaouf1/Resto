@@ -52,3 +52,15 @@ final class RemoveItemFromCartErrorState extends CartState {
   final String error;
   RemoveItemFromCartErrorState(this.error);
 }
+
+final class ClearCartLoadingState extends CartState {}
+
+final class ClearCartSuccessState extends CartState {
+  final CartEntity cart;
+  ClearCartSuccessState(this.cart);
+}
+
+final class ClearCartErrorState extends CartState {
+  final String error;
+  ClearCartErrorState(this.error);
+}

@@ -20,7 +20,7 @@ class CheckOutBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 100.h),
+      padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 80.h),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
