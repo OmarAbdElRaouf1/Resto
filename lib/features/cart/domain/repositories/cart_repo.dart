@@ -16,4 +16,6 @@ abstract class CartRepo {
   Future<CartEntity> removeItemFromCart({
     required String cartItemId,
   });
+
+  Future<CartEntity> clearCart();
 }

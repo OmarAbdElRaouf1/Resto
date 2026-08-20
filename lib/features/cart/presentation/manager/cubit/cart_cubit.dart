@@ -27,10 +27,7 @@ class CartCubit extends Cubit<CartState> {
   Future<void> addItemToCart(String productId, int quantity) async {
     emit(AddItemToCartLoadingState());
     try {
-      await cartRepo.addItemToCart(
-        productId: productId,
-        quantity: quantity,
-      );
+      await cartRepo.addItemToCart(productId: productId, quantity: quantity);
       final populatedCart = await cartRepo.getMyCart();
       currentCart = populatedCart;
       emit(AddItemToCartSuccessState(populatedCart));
@@ -55,10 +52,7 @@ class CartCubit extends Cubit<CartState> {
   Future<void> updateCartItem(String cartItemId, int quantity) async {
     emit(UpdateCartItemLoadingState());
     try {
-      await cartRepo.updateCartItem(
-        cartItemId: cartItemId,
-        quantity: quantity,
-      );
+      await cartRepo.updateCartItem(cartItemId: cartItemId, quantity: quantity);
       final populatedCart = await cartRepo.getMyCart();
       currentCart = populatedCart;
       emit(UpdateCartItemSuccessState(populatedCart));
@@ -71,14 +65,24 @@ class CartCubit extends Cubit<CartState> {
   Future<void> removeItemFromCart(String cartItemId) async {
     emit(RemoveItemFromCartLoadingState());
     try {
-      await cartRepo.removeItemFromCart(
-        cartItemId: cartItemId,
-      );
+      await cartRepo.removeItemFromCart(cartItemId: cartItemId);
       final populatedCart = await cartRepo.getMyCart();
       currentCart = populatedCart;
       emit(RemoveItemFromCartSuccessState(populatedCart));
     } catch (e) {
       emit(RemoveItemFromCartErrorState(_getErrorMessage(e)));
+    }
+  }
+
+  // clearCart
+  Future<void> clearCart() async {
+    emit(ClearCartLoadingState());
+    try {
+      final clearedCart = await cartRepo.clearCart();
+      currentCart = clearedCart;
+      emit(ClearCartSuccessState(clearedCart));
+    } catch (e) {
+      emit(ClearCartErrorState(_getErrorMessage(e)));
     }
   }
 }

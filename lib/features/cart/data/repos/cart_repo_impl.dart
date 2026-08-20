@@ -55,4 +55,11 @@ class CartRepoImpl implements CartRepo {
 
     return CartModel.fromJson(response);
   }
+
+  @override
+  Future<CartEntity> clearCart() async {
+    final response = await apiService.delete(ApiEndpoints.clearCart);
+
+    return CartModel.fromJson(response);
+  }
 }
